@@ -6,7 +6,7 @@
 
 冲激串采样 $s_(Delta T)(t) = sum_(n = - infinity)^infinity sigma("x-n" Delta T)$
 
-对连续函数采样 $tilde(f)(t) = f(t) s_(Delta T)(t) = sum_(n = - infinity)^(n = infinity) f(t) sigma(t - n Delta T)$ 每个点是有长度的冲激，需要再积分得到具体数值 $f_k = integral_(-infinity)^infinity f(t) delta(t - k Delta T) d t = f(k Delta T)$
+$tilde(f)(t) = f(t) s_(Delta T)(t) = sum_(n = - infinity)^infinity f(t) delta(t - n Delta T)$
 
 = 单变量的离散傅里叶变换
 
@@ -16,7 +16,7 @@ IDFT：$f(x) = frac(1, M) sum_(x = 0)^(M - 1) F(u) e^(j 2 pi u x \/ M) quad x = 
 
 = 二变量函数的傅里叶变换
 
-二维傅里叶变换是一维情形向两个方向的简单扩展
+二维傅里叶变换是一维情 形向两个方向的简单扩展
 
 $F(u, v) = integral_(-infinity)^(+infinity) integral_(-infinity)^(+infinity) f(t, z) e^(-j 2 pi(u t + v z)) d t d z$
 
@@ -35,24 +35,25 @@ IDFT：$f(x, y) = frac(1, M N) sum_(u = 0)^(M - 1 N - 1) F(u, v) e^(j 2 pi(u x \
 
 极坐标 $F(u comma nu) = lr(|F(u comma nu)|) e^(j phi.alt(u, v)) $
 
-周期性(k为整数) $F(u, v) = F(u + k_1 M, v) = F(u, v + k_2 N) = F(u + k_1, v + k_2 N)$ \ $f(x, y) = f(x + k_1 M, y) = f(x, y + k_2 N) = f(x + k_1 M, y + k_2 N)$
+周期性(k为整数) $F(u, v) = F(u + k_1, v + k_2 N)$ \ $f(x, y) = f(x + k_1 M, y + k_2 N)$
 
 卷积 $(f star h)(x, y) = sum_(m = 0)^(M - 1) sum_(n = 0)^(N - 1) f(m, n) h(x - m, y - n)$
 
 相关 $(f star.stroked h)(x, y) = sum_(m = 0)^(M - 1) sum_(n = 0)^(N - 1) f^* (m, n) h(x + m, y + n)$
 
-可分离性
-
-使用DFT算法求 IDFT $M N f^* (x, y) = sum_(u = 0)^(M - 1) sum_(v = 0)^(N - 1) F^* (u, v) upright(e)^(-upright(j) 2 pi(u x \/ M + nu y \/ N))$ 结果取
+可分离性 使用DFT算法求 IDFT $M N f^* (x, y) = sum_(u = 0)^(M - 1) sum_(v = 0)^(N - 1) F^* (u, v) upright(e)^(-upright(j) 2 pi(u x \/ M + nu y \/ N))$ 结果取
 复共轭并除以MN就可得到反变换
 //表4.4
 
-平移性 $f(x, y) upright(e)^(upright(j) 2 pi(u_0 x \/ M + v_0 y \/ N)) arrow.l.r.double F(u - u_0, v - v_0) $
+卷积定理$(f star h)(x, y) arrow.l.r.double(F dot.op H)(u, v) || (f dot.op h)(x, y) arrow.l.r.double frac(1, M N)(F star H)(u, v)$
 
-$f(x - x_0, y - y_0) arrow.l.r.double F(u, v) upright(e)^(-upright(j) 2 pi(u x_0 \/ M + nu y_0 \/ N))$
+平移性 $f(x, y) upright(e)^(upright(j) 2 pi(u_0 x \/ M + v_0 y \/ N)) arrow.l.r.double F(u - u_0, v - v_0) $  || $f(x - x_0, y - y_0) arrow.l.r.double F(u, v) upright(e)^(-upright(j) 2 pi(u x_0 \/ M + nu y_0 \/ N))$
+
+$delta(x - a, y - b) arrow.l.r.double e^(-j 2 pi(u a + v b))$
 
 = 频率域滤波
 (1)对图像f(x,y)进行零填充(长宽均变为两倍，变为$P times Q$
+//防止交叠错误
 
 (2) 频谱中心化：用$(-1)^x+y$乘以填充后的图像；
 
@@ -70,15 +71,48 @@ $f(x - x_0, y - y_0) arrow.l.r.double F(u, v) upright(e)^(-upright(j) 2 pi(u x_0
 
 (8)提取(7)中的左上角(与输入图像同大小)。
 
-// = 低通频率域滤波器平滑图像
 
-// = 高通滤波器锐化图像
+= 低通频率域滤波器
+理想低通滤波器 $D_0$截止频率
+$
+mat(delim: #none, H(u comma v) =
+mat(delim: #none, 1 comma, D(u comma v) lt.eq D_0;
+0 comma, D(u comma v) > D_0,);
+D(u comma v) = [(u - M \/ 2)^2 +(v - N \/ 2)^2 ])
+$
 
+总功率$P_T = sum_(u = 0)^(P - 1) sum_(v = 0)^(Q - 1) P(u, v) = sum_(u = 0)^(P - 1) sum_(v = 0)^(Q - 1) lr(|F(u comma v)|)^2$
+
+在D(u,v)内的功率占比 $alpha = 100 dot.op(sum_u sum_v P(u, v) \/ P_T) quad w h e r e quad D(u, v) lt.eq D_0$
+
+巴特沃斯 $H(u, v) = frac(1, 1 + [ D(u comma v) \/ D_0 ]^(2 n))$  $D(u, v) = [(u - M \/ 2)^2 +(v - N \/ 2)^2 ]^(1 \/ 2)$
+
+高斯 $H(u, v) = e^(-D^2 (u, v) \/ 2 D_0^2)$
+
+= 高通滤波器
+
+普通锐化：$H_(h p)(u,v)=1-H_(i p)(u,v)$
+
+理想：$H(u, v) = mat(delim: #none, 0 comma, D(u comma v) lt.eq D_0; 1 comma, D(u comma v) > D_0)$
+
+巴特沃斯：$H(u, v) = frac(1, 1 + [ D_0 \/ D(u comma v) ]^(2 n))$
+
+高斯：$H(u, v) = 1 - e^(-D^2 (u, v) \/ 2 D_0^2)$
+
+频率域的拉普拉斯算子：$H(u,v)=-(u^2+v^2)=-[(u-M/2)^2+(v-N/2)^2]$
+
+高提升滤波：$H_h b(u, v) =(A - 1) + H_(h p)(u, v)$
+
+高频加强滤波：$H_(h f e)(u, v) = a + b H_(h p)(u, v)$
+
+同态滤波器 $H(u, v) =(gamma_H - gamma_L) [ 1 - e^(-c(D^2 (u, v) \/ D_0^2)) ] + gamma_L$
+
+其中$gamma_L<1$且$gamma_H>1,c$用于控制滤波器函数斜面的锐化
 // = 选择性滤波
 
 = 快速傅里叶变换
 
-基本思想：利用傅里叶变换基底性质，将$M$个数据的傅里叶变换转为2组$M/2$个数据的傅里叶变换，此时计算量从 $M^{2}$ 降低为 $M^{2}/2$
+基本思想：利用傅里叶变换基底性质，将$M$个数据的傅里叶变换转为2组$M/2$个数据的傅里叶变换，此时计算量从 $M^2$ 降低为 $M^2/2$
 
 $F(u) = sum_(x = 0)^(K - 1) f(2 x) W_(2 K)^(u(2 x)) + sum_(x = 0)^(K - 1) f(2 x + 1) W_(2 K)^(u(2 x + 1))$ 偶数部分+奇数部分
 
