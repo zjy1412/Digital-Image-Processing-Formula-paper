@@ -2,19 +2,19 @@
 
 #heading[Chapter 4]
 
-= 采样
+== 采样
 
 冲激串采样 $s_(Delta T)(t) = sum_(n = - infinity)^infinity sigma("x-n" Delta T)$
 
 $tilde(f)(t) = f(t) s_(Delta T)(t) = sum_(n = - infinity)^infinity f(t) delta(t - n Delta T)$
 
-= 单变量的离散傅里叶变换
+== 单变量的离散傅里叶变换
 
 DFT：$F(u) = sum_(x = 0)^(M - 1) f(x) e^(-j 2 pi u x \/ M) quad u = 0, 1, dots.c, M - 1$
 
 IDFT：$f(x) = frac(1, M) sum_(x = 0)^(M - 1) F(u) e^(j 2 pi u x \/ M) quad x = 0, 1, dots.c, M - 1$
 
-= 二变量函数的傅里叶变换
+== 二变量函数的傅里叶变换
 
 二维傅里叶变换是一维情 形向两个方向的简单扩展
 
@@ -29,7 +29,7 @@ DTF：$F(u, v) = sum_(x = 0)^(M - 1) sum_(y = 0)^(N - 1) f(x, y) e^(-j 2 pi(u x 
 
 IDFT：$f(x, y) = frac(1, M N) sum_(u = 0)^(M - 1 N - 1) F(u, v) e^(j 2 pi(u x \/ M + v y \/ N))$
 
-== 二维DFT和IDFT性质
+==== 二维DFT和IDFT性质
 //表4.3
 谱 $lr(|F(u comma nu)|) = [ R^2 (u, nu) + I^2 (u, nu) ]^(1 \/ 2), quad R = upright(R e a l)(F), I = upright(I m a g)(F)$ 相 角$phi.alt(u, v) = arctan  [ frac(I(u comma v), R(u comma v))  ]$
 
@@ -53,7 +53,7 @@ IDFT：$f(x, y) = frac(1, M N) sum_(u = 0)^(M - 1 N - 1) F(u, v) e^(j 2 pi(u x \
 
 $delta(x - a, y - b) arrow.l.r.double e^(-j 2 pi(u a + v b))$
 
-= 频率域滤波
+== 频率域滤波
 (1)对图像f(x,y)进行零填充(长宽均变为两倍，变为$P times Q$
 //防止交叠错误
 
@@ -74,14 +74,12 @@ $delta(x - a, y - b) arrow.l.r.double e^(-j 2 pi(u a + v b))$
 (8)提取(7)中的左上角(与输入图像同大小)。
 
 
-= 低通频率域滤波器
-理想低通滤波器 $D_0$截止频率
-$
-mat(delim: #none, H(u comma v) =
+== 低通频率域滤波器
+理想低通滤波器 $D_0$为截止频率 $D(u comma v) = [(u - M \/ 2)^2 +(v - N \/ 2)^2 ]$
+
+$mat(delim: #none, H(u comma v) =
 mat(delim: #none, 1 comma, D(u comma v) lt.eq D_0;
-0 comma, D(u comma v) > D_0,);
-D(u comma v) = [(u - M \/ 2)^2 +(v - N \/ 2)^2 ])
-$
+0 comma, D(u comma v) > D_0,);) $
 
 总功率$P_T = sum_(u = 0)^(P - 1) sum_(v = 0)^(Q - 1) P(u, v) = sum_(u = 0)^(P - 1) sum_(v = 0)^(Q - 1) lr(|F(u comma v)|)^2$
 
@@ -91,7 +89,7 @@ $
 
 高斯 $H(u, v) = e^(-D^2 (u, v) \/ 2 D_0^2)$
 
-= 高通滤波器
+== 高通滤波器
 
 普通锐化：$H_(h p)(u,v)=1-H_(i p)(u,v)$
 
@@ -103,16 +101,16 @@ $
 
 频率域的拉普拉斯算子：$H(u,v)=-(u^2+v^2)=-[(u-M/2)^2+(v-N/2)^2]$
 
-高提升滤波：$H_h b(u, v) =(A - 1) + H_(h p)(u, v)$
+高提升滤波：$H_(h b)(u, v) =(A - 1) + H_(h p)(u, v)$
 
-高频加强滤波：$H_(h f e)(u, v) = a + b H_(h p)(u, v)$
+高频加强滤波：$H_(h f e)(u, v) = a + b H_(h p)(u, v)$ a控制原始贡献，b控制高通贡献
 
 同态滤波器 $H(u, v) =(gamma_H - gamma_L) [ 1 - e^(-c(D^2 (u, v) \/ D_0^2)) ] + gamma_L$
 
 其中$gamma_L<1$且$gamma_H>1,c$用于控制滤波器函数斜面的锐化
 // = 选择性滤波
 
-= 快速傅里叶变换
+== 快速傅里叶变换
 
 基本思想：利用傅里叶变换基底性质，将$M$个数据的傅里叶变换转为2组$M/2$个数据的傅里叶变换，此时计算量从 $M^2$ 降低为 $M^2/2$
 
