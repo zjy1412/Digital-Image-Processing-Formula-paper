@@ -9,9 +9,30 @@
 
 频域：$G(u, v) = H(u, v) F(u, v) +N(u, v)$
 
-// = 噪声模型
+= 噪声模型
 
 // 高斯,瑞利,伽马,指数,均匀,椒盐
+
+高斯 $p(z) = frac(1, sqrt(2 pi) sigma) e^(-(z - macron(z))^2 \/ 2 sigma^2)$
+
+瑞利 $p(z) =mat(delim: #none, frac(2, b)(z - a) e^(-(z - a)^2 - b), comma z gt.eq a;
+0, comma z < a,)$ || $macron(z) = a + sqrt(pi b \/ 4), sigma^2 = frac(b(4 - pi), 4)$
+
+伽马 $p(z) = frac(1, gamma) z^{gamma - 1} e^(-z - gamma) $
+
+指数 $p(z) = mat(delim: #none, frac(a^b z^(b - 1),(b - 1)!) e^(-a z), comma z gt.eq 0;
+0, comma z < 0,)$ || $macron(z) = frac(1, a), sigma^2 = frac(1, a^2)$
+
+均匀 $p(z) =
+mat(delim: #none, frac(1, b - a), comma a lt.eq z lt.eq b;
+0, comma o t h e r w i s e,)$ || $macron(z) = frac(a + b, 2), sigma^2 = frac((b - a)^2, 12)$
+
+椒盐 $p(z) =
+mat(delim: #none, P_s, comma z = 2^(k - 1);
+P_p, comma z = 0;
+1 -(P_s + P_p), comma z = V,)$
+
+参数估计 $mu = sum_(z_i in S) z_i p(z_i) quad sigma^2 = sum_(z_i in S)(z_i - mu)^2 p(z_i)$
 
 = 只存在噪声的复原——空间滤波
 

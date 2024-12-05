@@ -45,6 +45,8 @@ IDFT：$f(x, y) = frac(1, M N) sum_(u = 0)^(M - 1 N - 1) F(u, v) e^(j 2 pi(u x \
 复共轭并除以MN就可得到反变换
 //表4.4
 
+离散单位冲激 $delta(x, y) arrow.l.r.double 1, 1 arrow.l.r.double M N delta(u, v)$
+
 卷积定理$(f star h)(x, y) arrow.l.r.double(F dot.op H)(u, v) || (f dot.op h)(x, y) arrow.l.r.double frac(1, M N)(F star H)(u, v)$
 
 平移性 $f(x, y) upright(e)^(upright(j) 2 pi(u_0 x \/ M + v_0 y \/ N)) arrow.l.r.double F(u - u_0, v - v_0) $  || $f(x - x_0, y - y_0) arrow.l.r.double F(u, v) upright(e)^(-upright(j) 2 pi(u x_0 \/ M + nu y_0 \/ N))$
