@@ -85,3 +85,7 @@ $X_4 = X_1 union X_3$
 
 == 形态学重建
 https://www.bilibili.com/video/BV14q8weHExH?spm_id_from=333.788.player.switch&vd_source=52b1b43b72a779e60509273373fde7d4
+
+== 二值图像形态学运算小结
+//TODO 后续把上面公式全部收集到这里
+== 灰度级形态学
