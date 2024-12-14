@@ -1,10 +1,14 @@
 
 #import "@preview/mitex:0.2.4": *
+#import "@preview/tablex:0.0.6": tablex, hlinex
+#import "@preview/tablem:0.1.0": tablem
+
 #heading[Chapter 9]
 //https://www.bilibili.com/video/BV1r28we5ERQ?spm_id_from=333.788.player.switch&vd_source=52b1b43b72a779e60509273373fde7d4
 //p469
 
 
+/*
 == 腐蚀和膨胀
 
 B 对 A腐蚀 只用前景 $A minus.circle B = {z divides (B)_z subset.eq A} = {z divides (B)_z sect A^c = nothing} $
@@ -84,8 +88,62 @@ $X_4 = X_1 union X_3$
 
 
 == 形态学重建
-https://www.bilibili.com/video/BV14q8weHExH?spm_id_from=333.788.player.switch&vd_source=52b1b43b72a779e60509273373fde7d4
+
+测地膨胀$D_G^((1)) (F) = (F xor B) sect G$ 为n代表对前一次继续做测地膨胀 $D_G^((n)) (F) = D_G^((1)) [D_G^((n - 1)) (F)]$(跟联通域抽取一样)
+
+测地腐蚀$E_G^((1)) (F) = (F minus.circle B) union G$ 为n代表对前一次继续做测地腐蚀 $E_G^((n)) (F) = E_G^((1)) [E_G^((n - 1)) (F)]$
+
+自动孔洞填充 $ F (x , y) = cases(delim: "{", 1 - I (x , y) "," (x , y) "在 I的边框上", 0 ",其他" ) $
+*/
 
 == 二值图像形态学运算小结
 //TODO 后续把上面公式全部收集到这里
+#let three-line-table = tablem.with(
+  render: (columns: auto, ..args) => {
+    tablex(
+      columns: columns,
+      auto-lines: false,
+      align: center + horizon,
+      hlinex(y: 0),
+      hlinex(y: 1),
+      ..args,
+      hlinex(),
+    )
+  }
+)
+
+#three-line-table[
+  | *运算* | *公式* | *注释* |
+  | ------ | ---------- | -------- |
+  | 平移   | $ (B)_z = {c divides c = b + z, b in B}$ | 将$B$的原点平移到点$z$   |
+  | 反射   | $ hat(B) = {w divides w = - b, b in B}$ | 相对于$B$的原点反射   |
+  | 补集   | $ A^c = {w divides w in.not A}$ | 不属于$A$ 的点集   |
+  | 差集   | $ A - B = {w divides w in A, w in.not B} = A sect.big B^circle.small$ | 属于$A$但不属于$B$的点集   |
+  | 腐蚀   | $ A dot.circle B = {z divides (B)_z subset.eq A}$ | 腐蚀$A$的边界(I)   |
+  | 膨胀   | $ A xor B = {z divides (hat(B))_z sect A eq.not diameter}$ | 膨胀$A$的边界(I) |
+  | 开运算 | $ A circle.stroked.tiny B = (A minus.circle B) xor B$ | 平滑轮廓，断开狭窄区域，删除小孤岛和尖刺(I) |
+  | 闭运算 | $ A bullet B = (A xor B) minus.circle B$ | 平滑轮廓，弥合狭窄断裂和细长沟道，删除小孔洞(I) |
+  | 击中与击不中 | $ I ast.circle B_(1, 2) = {z divides (B_1)_z subset.eq A upright(" 和 ") (B_2)_z subset.eq A^c}$ | 在图像$I$中寻找结构元$B$的实例 |
+  | 边界提取 | $ beta (A) = A - (A minus.circle B)$ | 提取集合$A$的边界上的点集(I) |
+  | 孔洞填充 | $ X_k = (X_(k - 1) xor B) sect.big I^c , quad k = 1 , 2 , 3 , dots.h.c$ | 填充$A$中的孔洞，$X_0$初始化为$I$边框(I) |
+  | 连通分量 | $ X_k = (X_(k - 1) xor B) sect I , quad k = 1 , 2 , 3 , dots.h.c$ | 寻找$I$中的连通分量(I) |
+  | 凸壳   | $ X_k^i = (X_(k - 1)^i times.circle B^i) union.big X_(k - 1)^i , i = 1,2,3,4$ | 计算$I$中前景像素的凸壳(I) |
+  | 细化   | $ A times.circle B = A - (A ast.circle B)$ | 细化集合$A$，移除多余分支(I) |
+  | 粗化   | $ A dot.circle B = A union.big (A ast.circle B)$ | 使用结构元粗化集合$A$(I) |
+  | 骨架   | $ S(A) = union.big_(k = 0)^K S_k(A), quad S_k(A) = (A minus.circle k_B) - (A minus.circle k_B) circle.stroked.tiny B$ | 寻找集合$A$的骨架(I) |
+  | 裁剪   | $  X_1 = A times.circle { B } quad
+X_2 = union.big_(k = 1)^8 (X_1 times.circle B^k)\
+X_3 = (X_2 xor H) sect A quad
+X_4 = X_1 union X_3 $  | $ X_4$是裁剪集合 $ A$ 后的结果。结构元(V)用于前两个公式，$H$用于第三个公式(I) |
+  | 大小为1的测地膨胀 | $  D_G^(1)(F)=(F xor B) sect G$ | $ F$和$G$分别称为标记图像和模板图像(I) |
+  | 大小为1的测地腐蚀 | $ E_{G}^(1)(F)=(F dot.circle B) union G$ | $ F$和$G$分别称为标记图像和模板图像(I) |
+  | 大小为n的测地腐蚀 | $ E_{G}^(n)(F)=E_{G}^(1)(E_{G}^(n-1)(F))$ | $ n$表示重复迭代次数(I) |
+    | 膨胀形态学重建 | $  R_(G)^(D)(F)=D_(G)^(k)(F), quad k s.t.\ D_G^(k)(F)=D_G^(k+1)(F) $  | 通过迭代膨胀完成形态学重建(I) |
+  | 腐蚀形态学重建 | $ R_G^E(F)=E_G^(k)(F), quad k s.t. \  E_G^(k)(F)=E_G^(k+1)(F)$ | 通过迭代腐蚀完成形态学重建(I) |
+    | 重建开运算 | $ O_R^(n)(F)=R_F^D(F minus.circle n_B)$ | $ (F dot.circle n_B)$表示$B$对$F$的$n$次腐蚀，$B$的形式依赖于应用(I) |
+  | 重建闭运算 | $ C_R^(n)(F)=R_F^E(F xor n_B)$ | $ (F xor n_B)$表示$B$对$F$的$n$次膨胀，$B$的形式依赖于应用(I) |
+    | 孔洞填充 | $ H=[R_(I^c)^D(F)]^c$ | $ H$等于输入图像$I$，但所有孔洞均被填充(I) |
+  | 边界清除 | $ X=I-R_I^D(F)$ | $ X$等于输入图像$I$，但删除了所有接触边界的标记(I) |
+]
+
 == 灰度级形态学

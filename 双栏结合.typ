@@ -4,6 +4,7 @@
   margin: (top:0.5cm, bottom:0.5cm, left:0.5cm, right:0.5cm),
   columns: 2
 )
+//调整这个确保在4页打印
 #set text(0.58em)
 
 #show heading.where(
@@ -27,3 +28,5 @@
 #include("ch3.typ")
 #include("ch4.typ")
 #include("ch5.typ")
+#include("ch6.typ")
+#include("ch9.typ")

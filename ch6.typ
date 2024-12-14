@@ -14,7 +14,7 @@
 
 显示器显示,一个颜色有8比特,2^8=256种颜色,全彩色则是24比特图像
 
-#image("./img/rgb.png",height: 10%)
+#image("./img/rgb.png",height: 5%)
 === CMYK
 
 颜料颜色;CMY(青色、深红、黄色)是RGB的补色;K是黑色,用于调节色彩
@@ -34,7 +34,7 @@ CMYK->CMY: $C = C(1 - K) + K; M = M(1 - K) + K; Y = Y(1 - Y) + K$
 === HSI
 
 h色调(角度),s饱和度(鲜艳程度),i强度(颜色的明暗程度)
-#image("./img/hsi.png",height: 20%)
+#image("./img/hsi.png",height: 5%)
 
 RGB->HSI
 
