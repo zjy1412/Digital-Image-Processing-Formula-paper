@@ -147,3 +147,17 @@ X_4 = X_1 union X_3 $  | $ X_4$是裁剪集合 $ A$ 后的结果。结构元(V)�
 ]
 
 == 灰度级形态学
+
+灰度腐蚀$ [f minus.circle b] (x , y) = min_((s , t) in b) { f (x + s , y + t) }$ 非平坦$ [f minus.circle b_N] (x , y) = min_((s , t) in b_N) { f (x + s , y + t) - b_N (s , t) }$
+
+
+灰度膨胀$ [f xor b] (x , y) = max_((s , t) in hat(b)) { f (x - s , y - t) }$ 非平坦$ [f xor b_N] (x , y) = max_((s , t) in hat(b)_N) { f (x - s , y - t) + hat(b)_N (s , t) }$
+
+开运算$ f circle.stroked.tiny b = (f minus.circle b) xor b$ 闭运算$ f bullet b = (f xor b) minus.circle b$
+//开削峰，闭填谷
+
+形态学梯度 $g = vec(f xor b) - vec(f xor b)$
+//显示边缘
+
+顶帽变换 $T_(h a t)(f)=f - (f circle.stroked.tiny b)$ 底帽变换 $B_(h a t)(f)=(f bullet b) - f$
+//顶帽解决暗背景下亮目标分割,底帽解决亮背景下暗目标分割
