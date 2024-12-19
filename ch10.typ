@@ -59,7 +59,7 @@ Marr-Hildreth算法  $g (x , y) = [nabla^2 G (x , y)] star.filled f (x , y) = na
 
 == 阈值处理
 
-多分类  $g (x , y) = cases(delim: "{", a ", " f (x , y) > T_2, b , & T_1 < f (x , y) lt.eq T_2, c , & f (x , y) lt.eq T_1 & )$
+多分类   $g (x , y) = cases(delim: "{", a ", " f (x , y) > T_2, b "," T_1 < f (x , y) lt.eq T_2, c "," f (x , y) lt.eq T_1 & )$
 
 全局阈值化
 1. 为全局阈值$T$选择一个初始估计值。
