@@ -35,20 +35,27 @@ $ mat(
   z_7, z_8, z_9
 ) $
 
-罗伯算子  $g_x = frac(partial f, partial x) = (z_9 - z_5)$   $g_y = frac(partial f, partial y) = (z_8 - z_6)$
+罗伯算子   $g_x = frac(partial f, partial x) = (z_9 - z_5)$     $g_y = frac(partial f, partial y) = (z_8 - z_6)$
 
-Prewitt算子  $g_x = frac(partial f, partial x) = (z_7 + z_8 + z_9) - (z_1 + z_2 + z_3)$   $g_y = frac(partial f, partial y) = (z_3 + z_6 + z_9) - (z_1 + z_4 + z_7)$
+Prewitt算子   $g_x = frac(partial f, partial x) = (z_7 + z_8 + z_9) - (z_1 + z_2 + z_3)$     $g_y = frac(partial f, partial y) = (z_3 + z_6 + z_9) - (z_1 + z_4 + z_7)$
 
-Sobel 算子 $g_x = frac(partial f, partial x) = (z_7 + 2 z_8 + z_9) - (z_1 + 2 z_2 + z_3)$   $g_y = frac(partial f, partial y) = (z_3 + 2 z_6 + z_9) - (z_1 + 2 z_4 + z_7)$
+Sobel 算子  $g_x = frac(partial f, partial x) = (z_7 + 2 z_8 + z_9) - (z_1 + 2 z_2 + z_3)$     $g_y = frac(partial f, partial y) = (z_3 + 2 z_6 + z_9) - (z_1 + 2 z_4 + z_7)$
 
-二维高斯函数，$ G (x , y) = upright(e)^(- frac(x^2 + y^2, 2 sigma^2)) $
+二维高斯函数， $G (x , y) = upright(e)^(- frac(x^2 + y^2, 2 sigma^2))$
 
-高斯拉普拉斯(LoG)函数: $ nabla^2 G (x , y) = (frac(x^2 + y^2 - 2 sigma^2, sigma^4)) upright(e)^(- frac(x^2 + y^2, 2 sigma^2)) $
+高斯拉普拉斯(LoG)函数:  $nabla^2 G (x , y) = (frac(x^2 + y^2 - 2 sigma^2, sigma^4)) upright(e)^(- frac(x^2 + y^2, 2 sigma^2))$
 
-Marr-Hildreth算法 $ g (x , y) = [nabla^2 G (x , y)] star.filled f (x , y) = nabla^2 [G (x , y) star.op f (x , y)] $ 寻找g(x,y)的过零点来确定f(x,y)中边缘的位置
+Marr-Hildreth算法  $g (x , y) = [nabla^2 G (x , y)] star.filled f (x , y) = nabla^2 [G (x , y) star.op f (x , y)]$  寻找g(x,y)的过零点来确定f(x,y)中边缘的位置
 
-高斯差分(DoG)来近似式的LoG函数 $ D_G (x , y) = frac(1, 2 pi sigma_1^2) upright(e)^(- frac(x^2 + y^2, 2 sigma_1^2)) - frac(1, 2 pi sigma_2^2) upright(e)^(- frac(x^2 + y^2, 2 sigma_2^2)) $
+高斯差分(DoG)来近似式的LoG函数  $D_G (x , y) = frac(1, 2 pi sigma_1^2) upright(e)^(- frac(x^2 + y^2, 2 sigma_1^2)) - frac(1, 2 pi sigma_2^2) upright(e)^(- frac(x^2 + y^2, 2 sigma_2^2))$
 
 // 坎尼 没有公式,跳过
 
 == 连接边缘点
+
+满足条件则连接 $mat(delim: "|", M (s , t) - M (x , y)) lt.eq E$ $mat(delim: "|", alpha (s , t) - alpha (x , y)) lt.eq A$
+
+霍夫变换  $x cos theta + y sin theta = rho$
+
+== 阈值处理
+
