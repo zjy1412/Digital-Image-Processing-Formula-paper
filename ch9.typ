@@ -119,7 +119,7 @@ $X_4 = X_1 union X_3$
   | 反射   | $ hat(B) = {w divides w = - b, b in B}$ | 相对于$B$的原点反射   |
   | 补集   | $ A^c = {w divides w in.not A}$ | 不属于$A$ 的点集   |
   | 差集   | $ A - B = {w divides w in A, w in.not B} = A sect.big B^circle.small$ | 属于$A$但不属于$B$的点集   |
-  | 腐蚀   | $ A dot.circle B = {z divides (B)_z subset.eq A}$ | 腐蚀$A$的边界(I)   |
+  | 腐蚀   | $ A minus.circle B = {z divides (B)_z subset.eq A} = {z divides (B)_z sect A^c = nothing} $ | 腐蚀$A$的边界(I)   |
   | 膨胀   | $ A xor B = {z divides (hat(B))_z sect A eq.not diameter}$ | 膨胀$A$的边界(I) |
   | 开运算 | $ A circle.stroked.tiny B = (A minus.circle B) xor B$ | 平滑轮廓，断开狭窄区域，删除小孤岛和尖刺(I) |
   | 闭运算 | $ A bullet B = (A xor B) minus.circle B$ | 平滑轮廓，弥合狭窄断裂和细长沟道，删除小孔洞(I) |
