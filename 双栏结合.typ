@@ -6,6 +6,10 @@
 )
 //调整这个确保在4页打印
 #set text(0.58em)
+//伪粗体
+#import "@preview/cuti:0.2.1": show-cn-fakebold
+#show: show-cn-fakebold
+#set text(font: ("Times New Roman", "SimSun"))
 
 #show heading.where(
   level: 1
@@ -30,3 +34,4 @@
 #include("ch5.typ")
 #include("ch6.typ")
 #include("ch9.typ")
+#include("ch10.typ")
