@@ -55,7 +55,8 @@ Marr-Hildreth算法  $g (x , y) = [nabla^2 G (x , y)] star.filled f (x , y) = na
 
 满足条件则连接 $mat(delim: "|", M (s , t) - M (x , y)) lt.eq E$ $mat(delim: "|", alpha (s , t) - alpha (x , y)) lt.eq A$
 
-霍夫变换  $x cos theta + y sin theta = rho$
+霍夫变换  $rho (theta) = x upright(c o s) theta + y upright(s i n) theta = R c o s (theta - phi.alt) = sqrt(x^2 + y^2) upright(c o s) (theta - arctan x / y)$
+
 
 == 阈值处理
 
