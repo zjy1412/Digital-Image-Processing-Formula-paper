@@ -4,7 +4,7 @@
 
 == 采样
 
-冲激串采样 $s_(Delta T)(t) = sum_(n = - infinity)^infinity sigma("x-n" Delta T)$
+冲激串采样 $s_(Delta T)(t) = sum_(n = - infinity)^infinity delta("x-n" Delta T)$
 
 $tilde(f)(t) = f(t) s_(Delta T)(t) = sum_(n = - infinity)^infinity f(t) delta(t - n Delta T)$
 
@@ -35,7 +35,7 @@ IDFT：$f(x, y) = frac(1, M N) sum_(u = 0)^(M - 1 N - 1) F(u, v) e^(j 2 pi(u x \
 
 极坐标 $F(u comma nu) = lr(|F(u comma nu)|) e^(j phi.alt(u, v)) $
 
-周期性(k为整数) $F(u, v) = F(u + k_1, v + k_2 N)$ \ $f(x, y) = f(x + k_1 M, y + k_2 N)$
+周期性(k为整数) $F(u, v) = F(u + k_1 M, v + k_2 N)$ \ $f(x, y) = f(x + k_1 M, y + k_2 N)$
 
 卷积 $(f star h)(x, y) = sum_(m = 0)^(M - 1) sum_(n = 0)^(N - 1) f(m, n) h(x - m, y - n)$
 
