@@ -108,7 +108,7 @@ $H_upright(N R) (u, nu) = product_(k = 1)^Q H_k (u, nu) H_(-k)(u, nu)$
 
 $N(u, nu) = H_upright(N P) (u, nu) G(u comma nu)$   $eta(x, y) = frak(T)^(-1) {H_upright(N P) (u, nu) G(u, nu)}$  $hat(f)(x, y) = g(x, y) - w(x, y) eta(x, y)$
 
-$w(x, y) = frac(overline(g eta) - overline(g) overline(eta), overline(eta^2) - - overline(eta)^2)$
+$w (x , y) = frac(overline(g eta) - overline(g) overline(eta), overline(eta^2) - overline(eta)^2)$
 
 == 线性位置不变退化
 
