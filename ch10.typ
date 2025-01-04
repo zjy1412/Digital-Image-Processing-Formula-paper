@@ -3,7 +3,7 @@
 #import "@preview/tablex:0.0.6": tablex, hlinex
 #import "@preview/tablem:0.1.0": tablem
 
-#heading[Chapter 10]
+#heading[第十章：图像分割]
 
 == 背景知识
 

@@ -1,12 +1,12 @@
 #import "@preview/mitex:0.2.4": *
 
-#heading[Chapter 4]
+#heading[第四章：频率域滤波]
 
 在空域不好解决的问题，在频域上可能变得非常容易（性能及时间上）;不同于空域像素的调整，对频谱系数修改会作用于整个空域图像。空域适合：局部特征、实时操作、简单的像素级调整。频域适合：全局特征、复杂操作、周期性噪声去除、压缩等。
 
 == 采样
 
-周期冲激串 $s_(Delta T)(t) = sum_(n = - infinity)^infinity delta("x-n" Delta T)$ \ 取样后函数$tilde(f)(t) = f(t) s_(Delta T)(t) = sum_(n = - infinity)^infinity f(t) delta(t - n Delta T)$ \ 积分得到取样点的值$f_k (k) = integral_(- oo)^oo f (t) delta (t - k Delta T) upright(d) t = f (k Delta T)$\
+周期冲激串 $s_(Delta T)(t) = sum_(n = - infinity)^infinity delta(x-n Delta T)$ \ 取样后函数$tilde(f)(t) = f(t) s_(Delta T)(t) = sum_(n = - infinity)^infinity f(t) delta(t - n Delta T)$ \ 积分得到取样点的值$f_k (k) = integral_(- oo)^oo f (t) delta (t - k Delta T) upright(d) t = f (k Delta T)$\
 采样定理:采样率$f_s$应大于等于信号最高频率的两倍，即$f_s>2f_max$，否则会出现混叠现象。\
 
 
@@ -25,7 +25,7 @@ $f(t, z) = integral_(-infinity)^(+infinity) integral_(-infinity)^(+infinity) F(u
 采样：$tilde(f)(t, z) = f(t, z) s_(Delta T Delta Z)(t, z) = sum_(m = - infinity)^(infinity) sum_(n = - infinity)^(infinity) f(t, z) sigma(t - m Delta T, z - n Delta Z)$
 
 DFT：$F(u, v) = sum_(x = 0)^(M - 1) sum_(y = 0)^(N - 1) f(x, y) e^(-j 2 pi(u x \/ M + v y \/ N))$\
-IDFT：$f(x, y) = frac(1, M N) sum_(u = 0)^(M - 1 N - 1) F(u, v) e^(j 2 pi(u x \/ M + v y \/ N))$
+IDFT：$f(x, y) = frac(1, M N) sum_(u = 0)^(M - 1) sum_(v = 0)^(N - 1) F(u, v) e^(j 2 pi(u x \/ M + v y \/ N))$
 
 === 二维DFT和IDFT性质
 //表4.3
@@ -46,13 +46,14 @@ IDFT：$f(x, y) = frac(1, M N) sum_(u = 0)^(M - 1 N - 1) F(u, v) e^(j 2 pi(u x \
 $delta(x - a, y - b) arrow.l.r.double e^(-j 2 pi(u a + v b))$
 
 == 频率域滤波
-(1)对图像f(x,y)进行零填充(长宽均变为两倍，变为$P times Q$
+(1)对图像f(x,y)进行零填充(长宽均变为两倍，变为$P times Q$\
 //防止交叠错误
-(2)频谱中心化：用$(-1)^(x+y)$乘以填充后的图像
+(2)频谱中心化：用$(-1)^(x+y)$乘以填充后的图像\
 (3)计算`(2)`结果的DFT，即$F(u,v);$\
 (4)用滤波器函数(中心在(P/2,Q/2))$H(u,v)$乘以$F( u, v) :G(u, v) = H(u, v) F(u, v)$\
-(5)计算`(4)`中结果的IDFT，$g(x, y) = F^(-1)(G(u, v)) $理论值为实数，计算误差会导致寄生复成分
-(6)得到`(5)`结果中的实部;(7) 用$(-1)^{(x+y)}$乘以(6)中的结果
+(5)计算`(4)`中结果的IDFT，$g(x, y) = F^(-1)(G(u, v)) $理论值为实数，计算误差会导致寄生复成分\
+(6)得到`(5)`结果中的实部;\
+(7) 用$(-1)^{(x+y)}$乘以(6)中的结果\
 (8)提取(7)中的左上角(与输入图像同大小)。
 
 
