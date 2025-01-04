@@ -24,7 +24,7 @@ $F(u, v) = integral_(-infinity)^(+infinity) integral_(-infinity)^(+infinity) f(t
 $f(t, z) = integral_(-infinity)^(+infinity) integral_(-infinity)^(+infinity) F(u, v) e^(j 2 pi(mu t + v z)) d u d v$\
 采样：$tilde(f)(t, z) = f(t, z) s_(Delta T Delta Z)(t, z) = sum_(m = - infinity)^(infinity) sum_(n = - infinity)^(infinity) f(t, z) sigma(t - m Delta T, z - n Delta Z)$
 
-DTF：$F(u, v) = sum_(x = 0)^(M - 1) sum_(y = 0)^(N - 1) f(x, y) e^(-j 2 pi(u x \/ M + v y \/ N))$\
+DFT：$F(u, v) = sum_(x = 0)^(M - 1) sum_(y = 0)^(N - 1) f(x, y) e^(-j 2 pi(u x \/ M + v y \/ N))$\
 IDFT：$f(x, y) = frac(1, M N) sum_(u = 0)^(M - 1 N - 1) F(u, v) e^(j 2 pi(u x \/ M + v y \/ N))$
 
 === 二维DFT和IDFT性质
