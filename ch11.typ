@@ -3,7 +3,7 @@
 #import "@preview/tablex:0.0.6": tablex, hlinex
 #import "@preview/tablem:0.1.0": tablem
 
-#heading[Chapter 11]
+#heading[第十一章：特征提取]
 
 == 边界预处理
 

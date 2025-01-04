@@ -3,7 +3,7 @@
 #import "@preview/tablex:0.0.6": tablex, hlinex
 #import "@preview/tablem:0.1.0": tablem
 
-#heading[Chapter 9]
+#heading[第九章：形态学图像处理]
 //https://www.bilibili.com/video/BV1r28we5ERQ?spm_id_from=333.788.player.switch&vd_source=52b1b43b72a779e60509273373fde7d4
 //p469
 

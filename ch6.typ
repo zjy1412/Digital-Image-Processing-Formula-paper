@@ -1,6 +1,6 @@
 
 #import "@preview/mitex:0.2.4": *
-#heading[Chapter 6]
+#heading[第六章：彩色图像处理]
 
 == 彩色基础
 

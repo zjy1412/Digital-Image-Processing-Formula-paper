@@ -1,6 +1,6 @@
 #import "@preview/mitex:0.2.4": *
 
-#heading[Chapter 3]
+#heading[第三章：灰度变换与空间滤波]
 
 == 基本的灰度变换
 

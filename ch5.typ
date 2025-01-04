@@ -1,5 +1,5 @@
 #import "@preview/mitex:0.2.4": *
-#heading[Chapter 5]
+#heading[第五章：图像复原与重建]
 
 == 图像退化/复原模型
 
