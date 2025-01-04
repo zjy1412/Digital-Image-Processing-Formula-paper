@@ -95,9 +95,8 @@ $X_4 = X_1 union X_3$
 
 自动孔洞填充 $ F (x , y) = cases(delim: "{", 1 - I (x , y) "," (x , y) "在 I的边框上", 0 ",其他" ) $
 */
-
-== 二值图像形态学运算小结
-//TODO 后续把上面公式全部收集到这里
+目标通常定义为前景像素集合;结构元可以按照前景像素和背景像素来规定,原点用黑色点。\
+*腐蚀*效果能缩小、细化二值图像中的目标;*膨胀*修复图像中的断裂字符;*开运算*结果的边界：当B在A的边界*内侧*滚动时，B所能到达的A的边界的最远点;B的所有平移的并集。*闭操作*结果的边界：当B在A的边界*外侧*滚动时，B所能到达的A的边界的最远点;B的所有不与A重叠的平移的并集的补集。
 #let three-line-table = tablem.with(
   render: (columns: auto, ..args) => {
     tablex(
@@ -116,12 +115,14 @@ $X_4 = X_1 union X_3$
   | *运算* | *公式* | *注释* |
   | ------ | ---------- | -------- |
   | 平移   | $ (B)_z = {c divides c = b + z, b in B}$ | 将$B$的原点平移到点$z$   |
-  | 反射   | $ hat(B) = {w divides w = - b, b in B}$ | 相对于$B$的原点反射   |
+  | 反射   | $ hat(B) = {w divides w = - b, b in B}$ | 相对于$B$的原点反射(转180°)   |
   | 补集   | $ A^c = {w divides w in.not A}$ | 不属于$A$ 的点集   |
-  | 差集   | $ A - B = {w divides w in A, w in.not B} = A sect.big B^circle.small$ | 属于$A$但不属于$B$的点集   |
+  | 差集   | $ A - B = {w divides w in A, w in.not B} = A sect.big B^c$ | 属于$A$但不属于$B$的点集   |
   | 腐蚀   | $ A minus.circle B = {z divides (B)_z subset.eq A} = {z divides (B)_z sect A^c = nothing} $ | 腐蚀$A$的边界(I)   |
   | 膨胀   | $ A xor B = {z divides (hat(B))_z sect A eq.not diameter}$ | 膨胀$A$的边界(I) |
-  | 开运算 | $ A circle.stroked.tiny B = (A minus.circle B) xor B$ | 平滑轮廓，断开狭窄区域，删除小孤岛和尖刺(I) |
+  |对偶性   | $ (A minus.circle B)^c = A^c xor hat(B);(A xor B)^c = A^c minus.circle hat(B) $| |
+  | 开运算 | $ A circle.stroked.tiny B = (A minus.circle B) xor B \ =union.big {(B)_z \| (B)_z subset.eq A} $
+ | 平滑轮廓，断开狭窄区域，删除小孤岛和尖刺(I) |
   | 闭运算 | $ A bullet B = (A xor B) minus.circle B$ | 平滑轮廓，弥合狭窄断裂和细长沟道，删除小孔洞(I) |
   | 击中与击不中 | $ I ast.circle B_(1, 2) = {z divides (B_1)_z subset.eq A upright(" 和 ") (B_2)_z subset.eq A^c}$ | 在图像$I$中寻找结构元$B$的实例 |
   | 边界提取 | $ beta (A) = A - (A minus.circle B)$ | 提取集合$A$的边界上的点集(I) |
