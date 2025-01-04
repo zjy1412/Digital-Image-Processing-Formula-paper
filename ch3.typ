@@ -86,7 +86,22 @@ $w_1 w_2$为$m times 1$,$n times 1$列向量\
 
 降低相邻灰度的急剧过度，以减少无关细节（噪声）；平滑通过对相邻像素求和（积分）实现. 归一化确保亮度不变 ; 低通滤波可去除“无关”细节：即比其核小很多的点/区域\
 $g(x, y) = frac(sum_(s = - a t = - b)^a sum_(-b)^b w(s comma t) f(x + s comma y + t), sum_(s = - a t = - b)^a sum_(-b)^b w(s comma t))$
-#image("./img/常用低通核.png",height: 3%)\
+// #image("./img/常用低通核.png",height: 3%)\
+
+$"盒式线性滤波"
+1/9 times mat(
+  -1, -1, -1;
+   2,  2,  2;
+  -1, -1, -1;
+)
+
+"一般线性平滑"
+1/16 times mat(
+   2, -1, -1;
+  -1,  2, -1;
+  -1, -1,  2;
+)$
+
 盒式滤波器:每个元素相同;核越大,对越多像素做平均,其平滑程度越明显，细节丢失越多;\
 高斯核函数 $w(s, t) = G(s, t) = K e^(-frac(s^2 + t^2, 2 sigma^2))$ 一般选核大小奇数接近$ 6 sigma$ 对同一图像，高斯核越大越模糊 ; 圆对称：到中心点距离𝑟一样，则对应系数一样的;可分离：可写成两个一维的高斯分布相乘形式\
 对比：高斯核更适合去噪和平滑处理;盒式核更适合锐化和边缘增强。
@@ -100,7 +115,29 @@ $g(x, y) = frac(sum_(s = - a t = - b)^a sum_(-b)^b w(s comma t) f(x + s comma y 
 连续：$nabla^2 f = frac(diff^2 f, diff x^2) + frac(diff^2 f, diff y^2)$\
 离散：$nabla^2 f = [ f(x + 1, y) + f(x - 1, y) + f(x, y + 1) + f(x, y - 1) ] - 4 f(x, y)$\
 常见拉普拉斯滤波器特点:1. 中心对称；2. 中间值的绝对值大； 3. 和为零。
-#image("./img/常见的拉普拉斯滤波器.png",height: 2%)\
+// #image("./img/常见的拉普拉斯滤波器.png",height: 2%)\
+$mat(
+  0,  1,  0;
+  1, -4,  1;
+  0,  1,  0;
+)
+mat(
+  1,  1,  1;
+  1, -8,  1;
+  1,  1,  1;
+)
+mat(
+  0, -1,  0;
+ -1,  4, -1;
+  0, -1,  0;
+)
+mat(
+ -1, -1, -1;
+ -1,  8, -1;
+ -1, -1, -1;
+)
+$
+
 $g(x, y) =brace.l
 mat(delim: #none, f(x comma y) - nabla^2 f(x comma y) comma, "当拉普拉斯滤波中心系数为负";
 f(x comma y) + nabla^2 f(x comma y) comma, "当拉普拉斯滤波中心系数为正",)$
@@ -110,7 +147,7 @@ f(x comma y) + nabla^2 f(x comma y) comma, "当拉普拉斯滤波中心系数为
 k=1为钝化掩蔽 k>1为高提升滤波 k\<1不强调钝化模板的贡献
 ===   低通、高通、带阻和带通滤波器
 
-#image("./img/lbq.png",height: 3%)\
+#image("./img/lbq.png",height: 5%)
 单位冲激中心和滤波器核中心重合\
 低通 $l p(x comma y)$，高通 $h p(x comma y) = delta(x comma y) - l p(x comma y)$\
 带阻 $b r(x comma y) = l p_1 (x comma y) + h p_2 (x comma y), = l p_1 (x comma y) + [ delta(x comma y) - h p_2 (x comma y) ]$，带通 $b p(x comma y) = delta(x comma y) - b r(x comma y) = delta(x comma y) - [ l p_1 (x comma y) + [ delta(x comma y) - l p_2 (x comma y) ] ]$
