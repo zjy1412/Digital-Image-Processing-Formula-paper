@@ -84,6 +84,7 @@ $H_(H P)(u,v)=1-H_(L P)(u,v)$; $h_(H P)= delta (x , y) - h_(L P) (x , y) eq.not 
 
 == 带阻滤波器
 #image("./img/带阻滤波器.png",height: 3%)
+去除摩尔纹;去除周期干扰
 
 == 快速傅里叶变换
 
