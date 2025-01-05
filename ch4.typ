@@ -90,10 +90,41 @@ $H_(H P)(u,v)=1-H_(L P)(u,v)$; $h_(H P)= delta (x , y) - h_(L P) (x , y) eq.not 
 巴特沃斯带阻 (BBRF) $H(u, v) = frac(1, 1 +(frac(D(u comma v) W, D^2 (u comma v) - C_0^2))^(2 n))$
 带阻作用:去除摩尔纹;去除周期干扰
 == 快速傅里叶变换
-利用傅里叶变换基底性质，将$M$个数据的傅里叶变换转为2组$M/2$个数据的傅里叶变换，此时计算量从 $M^2$ 降低为 $M^2/2$\
-$F(u) = sum_(x = 0)^(K - 1) f(2 x) W_(2 K)^(u(2 x)) + sum_(x = 0)^(K - 1) f(2 x + 1) W_(2 K)^(u(2 x + 1))$ 偶数部分+奇数部分\
-$W_M = e^(-j 2 pi \/ upright(M))$ ; $W_M^(u x) = (W_M)^(u x) = e^(- j 2 pi u x \/ M)$ ; $ W_(2 K) ""^(2 u x) = W_k ""^(u x)$
+// 利用傅里叶变换基底性质，将$M$个数据的傅里叶变换转为2组$M/2$个数据的傅里叶变换，此时计算量从 $M^2$ 降低为 $M^2/2$\
+// $F(u) = sum_(x = 0)^(K - 1) f(2 x) W_(2 K)^(u(2 x)) + sum_(x = 0)^(K - 1) f(2 x + 1) W_(2 K)^(u(2 x + 1))$ 偶数部分+奇数部分\
+// $W_M = e^(-j 2 pi \/ upright(M))$ ; $W_M^(u x) = (W_M)^(u x) = e^(- j 2 pi u x \/ M)$ ; $ W_(2 K) ""^(2 u x) = W_k ""^(u x)$
 
-$F_(e v e n)(u) = sum_(x = 0)^(K - 1) f(2 x) W_K^(u x) quad F_(o d d)(u) = sum_(x = 0)^(K - 1) f(2 x + 1) W_K^(u x)$
+// $F_(e v e n)(u) = sum_(x = 0)^(K - 1) f(2 x) W_K^(u x) quad F_(o d d)(u) = sum_(x = 0)^(K - 1) f(2 x + 1) W_K^(u x)$
 
-$F(u) = F_(e v e n)(u) + F_(o d d)(u) W_(2 K)^u \ F(u + K) = F_(e v e n)(u) - F_(o d d)(u) W_(2 K)^u$
+// $F(u) = F_(e v e n)(u) + F_(o d d)(u) W_(2 K)^u \ F(u + K) = F_(e v e n)(u) - F_(o d d)(u) W_(2 K)^u$
+
+
+
+二维DFT的可分离性：二维离散傅里叶变换可以分解为两个一维离散傅里叶变换的计算。
+
+对于大小为 $M times N$ 的图像 $f(x,y)$，其 2D DFT 为：
+$F(u,v) = sum_(x=0)^(M-1) sum_(y=0)^(N-1) f(x,y) e^(-j 2pi ( frac(u x, M) + frac(v y, N) ))$
+
+2D DFT 可以分解为以下两步：
+
+1. 对每一行进行 1D DFT：
+   $F(x,v) = sum_(y=0)^(N-1) f(x,y) e^(-j 2pi frac(v y, N))$
+
+2. 对每一列进行 1D DFT：
+   $F(u,v) = sum_(x=0)^(M-1) F(x,v) e^(-j 2pi frac(u x, M))$
+
+逐次加倍法（Cooley-Tukey算法，复杂度为 $O(M log M)$）：
+
+对于长度为 $M$ 的序列 $f(x)$，其离散傅里叶变换（DFT）定义为：
+$F(u) = sum_(x=0)^(M-1) f(x) e^(-j 2pi frac(u x, M))$
+
+分解为偶数和奇数子序列
+
+DFT 公式可以写为：
+$F(u) = sum_(k=0)^(M/2-1) f(2k) e^(-j 2pi frac(u(2k), M)) + sum_(k=0)^(M/2-1) f(2k+1) e^(-j 2pi frac(u(2k+1), M))$
+
+最终的FFT计算公式：
+$F(u) = F_(text("even"))(u) + e^(-j 2pi frac(u, M)) F_(text("odd"))(u)$
+$F(u + frac(M, 2)) = F_(text("even"))(u) - e^(-j 2pi frac(u, M)) F_(text("odd"))(u)$
+
+其中 $u = 0, 1, 2, dots, M/2 - 1$
