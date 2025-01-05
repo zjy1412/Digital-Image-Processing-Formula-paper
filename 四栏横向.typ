@@ -18,7 +18,7 @@
   level: 1
 ): it => block(width: 100%)[
   #set align(center)
-  #set text(8pt, weight: "bold")
+  #set text(9pt, weight: "bold")
   #smallcaps(it.body)
 ]
 
@@ -26,7 +26,7 @@
 #show heading.where(
   level: 2
 ): it => block(width: 100%)[
-  #set text(7pt, weight: "bold")
+  #set text(7.5pt, weight: "bold")
   #smallcaps(it.body)
 ]
 
@@ -34,7 +34,7 @@
 #show heading.where(
   level: 3
 ): it => block(width: 100%)[
-  #set text(6.5pt, weight: "bold")
+  #set text(7pt, weight: "bold")
   #smallcaps(it.body)
 ]
 
