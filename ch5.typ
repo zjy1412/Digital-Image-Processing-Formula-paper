@@ -12,16 +12,16 @@
 
 // 高斯,瑞利,伽马,指数,均匀,椒盐
 
-高斯 $p(z) = frac(1, sqrt(2 pi) sigma) e^(-(z - macron(z))^2 \/ 2 sigma^2)$ ;
-瑞利 $p(z) =brace.l mat(delim: #none, frac(2, b)(z - a) e^(-(z - a)^2 - b), comma z gt.eq a;
+*高斯* $p(z) = frac(1, sqrt(2 pi) sigma) e^(-(z - macron(z))^2 \/ 2 sigma^2)$ ;
+*瑞利* $p(z) =brace.l mat(delim: #none, frac(2, b)(z - a) e^(-(z - a)^2 - b), comma z gt.eq a;
 0, comma z < a,)$ || $macron(z) = a + sqrt(pi b \/ 4), sigma^2 = frac(b(4 - pi), 4)$\
-爱尔兰（伽马）$p(z) =brace.l mat(delim: #none, frac(a^b z^(b - 1),(b - 1)!) e^(-a z), comma z gt.eq 0;
+*爱尔兰（伽马）*$p(z) =brace.l mat(delim: #none, frac(a^b z^(b - 1),(b - 1)!) e^(-a z), comma z gt.eq 0;
 0, comma z < 0,)$ || $macron(z) = frac(b, a), sigma^2 = frac(b, a^2)$ a>0,b正整数\
-指数 $p (z) = cases(a e^(- a z) & z gt.eq 0, 0& z < 0 )$ || $macron(z) = frac(1, a), sigma^2 = frac(1, a^2)$\
-均匀 $p(z) =brace.l
+*指数* $p (z) = cases(a e^(- a z) & z gt.eq 0, 0& z < 0 )$ || $macron(z) = frac(1, a), sigma^2 = frac(1, a^2)$\
+*均匀* $p(z) =brace.l
 mat(delim: #none, frac(1, b - a), comma a lt.eq z lt.eq b;
 0, comma o t h e r w i s e,)$ || $macron(z) = frac(a + b, 2), sigma^2 = frac((b - a)^2, 12)$ ;
-椒盐 $p(z) =brace.l
+*椒盐* $p(z) =brace.l
 mat(delim: #none, P_s, comma z = 2^(k - 1);
 P_p, comma z = 0;
 1 -(P_s + P_p), comma z = V,)$\

@@ -84,11 +84,12 @@ $H_(H P)(u,v)=1-H_(L P)(u,v)$; $h_(H P)= delta (x , y) - h_(L P) (x , y) eq.not 
 其中$gamma_L<1$低频成分增益因且$gamma_H>1$高频成分增益因子;$c$用于控制滤波器函数斜面的锐化
 
 == 带阻滤波器
-#image("./img/带阻滤波器.png",height: 4%)
-去除摩尔纹;去除周期干扰
-
+// #image("./img/带阻滤波器.png",height: 3%)
+理想带阻(IBRF) $H(u, v) =cases(0 " " C_0 - frac(W, 2) lt.eq D(u comma v) lt.eq C_0 + frac(W, 2), 1 " " "其他情况")$
+高斯带阻(GBRF) $H(u, v) = 1 - e^(-(frac(D^2 (u comma v) - C_0^2, D(u comma v) W))^2)$\
+巴特沃斯带阻 (BBRF) $H(u, v) = frac(1, 1 +(frac(D(u comma v) W, D^2 (u comma v) - C_0^2))^(2 n))$
+带阻作用:去除摩尔纹;去除周期干扰
 == 快速傅里叶变换
-
 利用傅里叶变换基底性质，将$M$个数据的傅里叶变换转为2组$M/2$个数据的傅里叶变换，此时计算量从 $M^2$ 降低为 $M^2/2$\
 $F(u) = sum_(x = 0)^(K - 1) f(2 x) W_(2 K)^(u(2 x)) + sum_(x = 0)^(K - 1) f(2 x + 1) W_(2 K)^(u(2 x + 1))$ 偶数部分+奇数部分\
 $W_M = e^(-j 2 pi \/ upright(M))$ ; $W_M^(u x) = (W_M)^(u x) = e^(- j 2 pi u x \/ M)$ ; $ W_(2 K) ""^(2 u x) = W_k ""^(u x)$

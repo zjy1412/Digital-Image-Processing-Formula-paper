@@ -65,16 +65,16 @@ $mat(
   z_7, z_8, z_9
 )$
 
-Robert算子   $g_x = frac(partial f, partial x) = (z_9 - z_5)$     $g_y = frac(partial f, partial y) = (z_8 - z_6)$\
-Prewitt算子   $g_x = frac(partial f, partial x) = (z_7 + z_8 + z_9) - (z_1 + z_2 + z_3)$     $g_y = frac(partial f, partial y) = (z_3 + z_6 + z_9) - (z_1 + z_4 + z_7)$\
-Sobel 算子  $g_x = frac(partial f, partial x) = (z_7 + 2 z_8 + z_9) - (z_1 + 2 z_2 + z_3)$     $g_y = frac(partial f, partial y) = (z_3 + 2 z_6 + z_9) - (z_1 + 2 z_4 + z_7)$\
+*Robert算子*   $g_x = frac(partial f, partial x) = (z_9 - z_5)$     $g_y = frac(partial f, partial y) = (z_8 - z_6)$\
+*Prewitt算子*   $g_x = frac(partial f, partial x) = (z_7 + z_8 + z_9) - (z_1 + z_2 + z_3)$     $g_y = frac(partial f, partial y) = (z_3 + z_6 + z_9) - (z_1 + z_4 + z_7)$\
+*Sobel 算子*  $g_x = frac(partial f, partial x) = (z_7 + 2 z_8 + z_9) - (z_1 + 2 z_2 + z_3)$     $g_y = frac(partial f, partial y) = (z_3 + 2 z_6 + z_9) - (z_1 + 2 z_4 + z_7)$\
 与Sobel相比，Prewitt更简单，但Sobel能更好抑制（平滑）噪声。\
 Kirsch罗盘核：用于检测8个罗盘方向的边缘幅度和方向\
 二维高斯函数， $G (x , y) = upright(e)^(- frac(x^2 + y^2, 2 sigma^2))$ ;
 高斯拉普拉斯(LoG)函数:  $nabla^2 G (x , y) = (frac(x^2 + y^2 - 2 sigma^2, sigma^4)) upright(e)^(- frac(x^2 + y^2, 2 sigma^2))$\
-Marr-Hildreth算法  $g (x , y) = [nabla^2 G (x , y)] star.filled f (x , y) = nabla^2 [G (x , y) star.op f (x , y)]$  寻找g(x,y)的过零点来确定f(x,y)中边缘的位置\
+*Marr-Hildreth算法*  $g (x , y) = [nabla^2 G (x , y)] star.filled f (x , y) = nabla^2 [G (x , y) star.op f (x , y)]$  寻找g(x,y)的过零点来确定f(x,y)中边缘的位置\
 高斯差分(DoG)来近似式的LoG函数  $D_G (x , y) = frac(1, 2 pi sigma_1^2) upright(e)^(- frac(x^2 + y^2, 2 sigma_1^2)) - frac(1, 2 pi sigma_2^2) upright(e)^(- frac(x^2 + y^2, 2 sigma_2^2))$\
-Canny 坎尼 1.用一个高斯滤波器平滑输入图$f_s (x , y) = G (x , y) star.op f (x , y)$ 2.计算梯度幅值图像$M_S$(L2)和角度图像$alpha (x , y) = tan^(- 1) [frac(g_y (x , y), g_x (x , y))]$ 3.对梯度幅值图像应用非极大值抑制进行细化边缘 4.用双阈值处理和连通性分析来检测与连接边缘\
+*Canny 坎尼* 1.用一个高斯滤波器平滑输入图$f_s (x , y) = G (x , y) star.op f (x , y)$ 2.计算梯度幅值图像$M_S$(L2)和角度图像$alpha (x , y) = tan^(- 1) [frac(g_y (x , y), g_x (x , y))]$ 3.对梯度幅值图像应用非极大值抑制进行细化边缘 4.用双阈值处理和连通性分析来检测与连接边缘\
 非极大值抑制 寻找最接近α方向dk,修改值$g_N (x , y) = cases( 0 & M_s \( upright("x,y)小于d")_k upright("方向上的两个邻点值"), M_s (x , y) & upright("否则") & ) $\
 双阈值化处理$g_(N H) (x , y) = g_N (x , y) gt.eq T_H $强边缘(存在间断) $g_(N L) (x , y) = g_N (x , y) gt.eq T_L $强边缘+弱边缘 $g_(N L) (x , y) = g_(N L) (x , y) - g_(N H) (x , y) $ 弱边缘
 
@@ -82,20 +82,20 @@ Canny 坎尼 1.用一个高斯滤波器平滑输入图$f_s (x , y) = G (x , y) s
 
 满足条件则连接 $mat(delim: "|", M (s , t) - M (x , y)) lt.eq E$ $mat(delim: "|", alpha (s , t) - alpha (x , y)) lt.eq A$
 
-霍夫变换  $rho (theta) = x upright(c o s) theta + y upright(s i n) theta = R c o s (theta - phi.alt) = sqrt(x^2 + y^2) upright(c o s) (theta - arctan x / y)$
+*霍夫变换*  $rho (theta) = x upright(c o s) theta + y upright(s i n) theta = R c o s (theta - phi.alt) = sqrt(x^2 + y^2) upright(c o s) (theta - arctan x / y)$
 
 == 阈值处理
 
-单阈值 $g (x , y) = cases(delim: "{", 1 " " f (x , y) >= T,0" " f (x , y) lt.eq T & )$ 双阈值 $g (x , y) = cases(delim: "{", a ", " f (x , y) > T_2, b "," T_1 < f (x , y) lt.eq T_2, c "," f (x , y) lt.eq T_1 & )$
+*单阈值* $g (x , y) = cases(delim: "{", 1 " " f (x , y) >= T,0" " f (x , y) lt.eq T & )$ *双阈值* $g (x , y) = cases(delim: "{", a ", " f (x , y) > T_2, b "," T_1 < f (x , y) lt.eq T_2, c "," f (x , y) lt.eq T_1 & )$
 
-基本的全局阈值化
+*基本的全局阈值化*
 1. 为全局阈值$T$选择一个初始估计值。\
 2. 在 $g (x , y) = cases(delim: "{", 1 "," f (x , y) > T, 0 "," f (x , y) lt.eq T & )$中用$T$分割图像。这将产生两组像素：由灰度值大于$T$的所有像素组成的$G_1$,由所有小于等于$T$的像素组成的$G_2$\
 3. 对 $G_1$ 和 $G_2$中的像素分别计算平均灰度值(均值)$m_1$和 $m_2$\
 4. 在$m_1$和 $m_2$之间计算一个新的阈值： $T=(m_1+m_2)/2$\
 5. 重复步骤 2 到步骤 4,直到连续迭代中的两个$T$值间的差小于某个预定义的值$Delta T$为止。
 
-`OSTU`方法:\
+*`OSTU`方法*:\
 $n_i$ 表示灰度级i的像素数, $M*N= sum_(i=0)^(L-1) n_i;p_i=n_i/(M N);sum_(i = 0)^(L - 1) p_i = 1 , quad p_i gt.eq 0$\
 分为两类 $c_1,c_2$  累计概率 $P_1 (k) = sum_(i = 0)^k p_i;P_2 (k) = sum_(i = k + 1)^(L - 1) p_i = 1 - P_1 (k)$ \
 平均灰度  $m_1 (k) = frac(1, P_1 (k)) sum_(i = 0)^k i p_i;m_2 (k) = frac(1, P_2 (k)) sum_(i = k + 1)^(L - 1) i p_i$ \
@@ -109,7 +109,7 @@ k级累计灰度 $m (k) = sum_(i = 0)^k i p_i$  整个图像平均灰度  $m_G =
 //P554
 == 区域生长 分离 聚合
 
-区域生长
+*区域生长*
 //p565
 1. *初始种子区域*：从种子数组S(x,y)中找到所有连通分量，并将这些区域标记为1，其他位置标记为0。\
 2. *条件筛选*：根据谓词Q对图像f(x,y)进行筛选，形成新的图像f，其中满足条件的像素标记为1，否则为0。\
@@ -117,7 +117,7 @@ k级累计灰度 $m (k) = sum_(i = 0)^k i p_i$  整个图像平均灰度  $m_G =
 4. *连通区域标记*：用不同的标签标记图像g中的每个连通分量，得到最终的区域生长分割结果。
 
 
-分离聚合
+*分离聚合*
 //p567
 令R表示整个图像区域，Q是针对区域的一个逻辑谓词比如\
 $Q = cases(delim: "{", upright(t r u e) " " sigma > alpha and 0 < m < b, upright(f a l s e) " "upright(o t h e r w i s e) & )$\
