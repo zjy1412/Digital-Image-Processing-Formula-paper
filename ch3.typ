@@ -4,19 +4,19 @@
 
 == 基本的灰度变换
 
-反转变换$S=L-1-r$ ;增强暗色区域中的白色或灰色细节; \
-对数变换$S=c log(1+r)$ ;将范围较窄的低灰度值映射为范围较宽的 \
-幂律(伽马)变换$s=c r^gamma$ ; 其中 $c$ 和 $gamma$ 为正常数。 $gamma<1$ 变亮,加强暗细节;反之变暗,加强亮细节;可增强对比度\
-分段线性变换:\
+*反转变换*$S=L-1-r$ ;增强暗色区域中的白色或灰色细节; \
+*对数变换*$S=c log(1+r)$ ;将范围较窄的低灰度值映射为范围较宽的 \
+*幂律(伽马)变换*$s=c r^gamma$ ; 其中 $c$ 和 $gamma$ 为正常数。 $gamma<1$ 变亮,加强暗细节;反之变暗,加强亮细节;可增强对比度\
+*分段线性变换*:\
 1.对比度拉伸:提高灰度级的动态范围,改善对比度;\
 2.灰度级分层:突出某区间灰度,其他位置可不变也可降级;\
 3.比特平面分层:8bit灰度图分割成8个比特面,(左)高位表示主体信息,低位给出不同程度的细节
 //动态范围=取值范围=最大值-最小值
 == 直方图处理
 
-直方图容器:$h(r_k) = n_k, quad k = 0, 1, 2, dots.c, L - 1$ ;
+*直方图容器*:$h(r_k) = n_k, quad k = 0, 1, 2, dots.c, L - 1$ ;
 $n_k$是f中灰度为$r_k$的像素的数量 ; k越大越白\
-直方图:对容器归一化$p(r_k) = frac(h(r_k), M N) = frac(n_k, M N)$\
+*直方图*:对容器归一化$p(r_k) = frac(h(r_k), M N) = frac(n_k, M N)$\
 无空间信息,不同图像可能直方图相似,同一图像切片的直方图有可加性;若一幅图像其像素占有全部可能的灰度级并且分布均匀，这样的图像灰度对比度高、细节会相对明显
 
 ==== 均衡化
@@ -36,15 +36,15 @@ $n_k$是f中灰度为$r_k$的像素的数量 ; k越大越白\
 使得直方图变换到规定的分布;均衡可以看作是匹配的特例\
 输入原始图$p_r (r)$，目标图像$p_z (z)$，求输入𝑟到输出𝑧的变换公式\
 把原始图像和目标图像都用均衡化的作为桥梁\
-连续：原图均衡化$s=T(r) =(L - 1) integral_0^r p_r (w) dif w$;目标图均衡化$s=G(z) =(L - 1) integral_0^z p_z (nu) dif nu$\
+*连续*：原图均衡化$s=T(r) =(L - 1) integral_0^r p_r (w) dif w$;目标图均衡化$s=G(z) =(L - 1) integral_0^z p_z (nu) dif nu$\
 均衡化图求逆得到目标$z = G^(-1)(s) = G^(-1) [ T(r) ]$
 
-离散：$q, k in [ 0, L - 1 ]$ $s_k=T(r_k) =(L - 1) sum_(j = 0)^upright(k) p_r (r_j)$ ; $s_k=G(z_q) =(L - 1) sum_(i = 0)^q p_z (z_i)$ ; $z_q = G^(-1)(s_k)$\
+*离散*：$q, k in [ 0, L - 1 ]$ $s_k=T(r_k) =(L - 1) sum_(j = 0)^upright(k) p_r (r_j)$ ; $s_k=G(z_q) =(L - 1) sum_(i = 0)^q p_z (z_i)$ ; $z_q = G^(-1)(s_k)$\
 $s_k$定义域和值域都是离散且有限,可用一表格记录其对应关系，并采样遍历方式找到最优匹配值,无需求逆
 
 ==== 局部处理
 
-图像/图像块(全局/局部)的统计距计算\
+图像/图像块(全局/局部)的*统计距*计算\
 设$p(r_i) = frac(n_i, n), quad i = 0, 1, 2, . . ., L - 1$\
 灰度级$r$相对于均值m的$n$阶中心矩为：$mu_n (r) = sum_(i = 0)^(L - 1)(r_i - m)^n p(r_i)$\
 m是r的均值:$m = sum_(i = 0)^(L - 1) r_i p(r_i)$ 衡量明暗程度\
@@ -63,8 +63,8 @@ $g(x, y) = sum_(s = - a)^a sum_(t = - b)^b w(s, t) f(x + s, y + t)$\
 === 空间相关与卷积
 一维核旋转 180°相当于这个核绕相对于其轴进行翻转。\
 二维旋转180°等效于核关于其一个轴翻转，然后关于另一个轴翻转。\
-相关$(w star.stroked f)(x, y) = sum_(s = - a)^a sum_(t = - b)^b w(s, t) f(x + s, y + t)$\
-卷积$(w star f)(x, y) = sum_(s = - a)^a sum_(t = - b)^b w(s, t) f(x - s, y - t)$  等同于将核旋转180度后再做相关，对于对称的核，相关和卷积得到的结果一致。\
+*相关*$(w star.stroked f)(x, y) = sum_(s = - a)^a sum_(t = - b)^b w(s, t) f(x + s, y + t)$\
+*卷积*$(w star f)(x, y) = sum_(s = - a)^a sum_(t = - b)^b w(s, t) f(x - s, y - t)$  等同于将核旋转180度后再做相关，对于对称的核，相关和卷积得到的结果一致。\
 卷积满足交换，结合，分配律;相关只满足分配律\
 N输出大小，W输入大小，P填充大小，S步长 F 卷积核大小\
 $N = frac((W - F + 2 P), S) + 1$\
@@ -79,7 +79,7 @@ $w_1 w_2$为$m times 1$,$n times 1$列向量\
 
 可分离核执行卷积相对不可分离核执行卷积的计算优势:$C = frac(M N m n, M N(m + n)) = frac(m n, m + n)$\
 可分离核条件：$ r a n k(w) = 1$\
-分离方法： 在核w中找到任何一个非零元素$a$,值为$E$；提取$a$所在的列与行，形成列向量$c$和$r;$ ；$w_1=c$ , $w_2^T=r/ E$
+*分离方法*： 在核w中找到任何一个非零元素$a$,值为$E$；提取$a$所在的列与行，形成列向量$c$和$r;$ ；$w_1=c$ , $w_2^T=r/ E$
 
 === 平滑（低通）空间滤波器
 
@@ -101,19 +101,19 @@ $"盒式线性滤波"
   1, 2, 1;
 )$
 
-盒式滤波器:每个元素相同;核越大,对越多像素做平均,其平滑程度越明显，细节丢失越多;\
-高斯核函数 $w(s, t) = G(s, t) = K e^(-frac(s^2 + t^2, 2 sigma^2))$ 一般选核大小奇数接近$ 6 sigma$ 对同一图像，高斯核越大越模糊 ; 圆对称：到中心点距离𝑟一样，则对应系数一样的;可分离：可写成两个一维的高斯分布相乘形式\
+*盒式滤波器*:每个元素相同;核越大,对越多像素做平均,其平滑程度越明显，细节丢失越多;\
+*高斯核函数* $w(s, t) = G(s, t) = K e^(-frac(s^2 + t^2, 2 sigma^2))$ 一般选核大小奇数接近$ 6 sigma$ 对同一图像，高斯核越大越模糊 ; 圆对称：到中心点距离𝑟一样，则对应系数一样的;可分离：可写成两个一维的高斯分布相乘形式\
 对比：高斯核更适合去噪和平滑处理;盒式核更适合锐化和边缘增强。
 
 
 === 锐化（高通）空间滤波器
 
 凸显灰度的过渡部分，以增强图像中的细节。锐化用相邻像素差分（导数）来实现.\
-一维差分 $frac(diff f, diff x) = f(x + 1) - f(x) quad frac(diff^2 f, diff x^2) = f(x + 1) + f(x - 1) - 2 f(x)$\
+*一维差分* $frac(diff f, diff x) = f(x + 1) - f(x) quad frac(diff^2 f, diff x^2) = f(x + 1) + f(x - 1) - 2 f(x)$\
 ==== 拉普拉斯算子
-连续：$nabla^2 f = frac(diff^2 f, diff x^2) + frac(diff^2 f, diff y^2)$\
-离散：$nabla^2 f = [ f(x + 1, y) + f(x - 1, y) + f(x, y + 1) + f(x, y - 1) ] - 4 f(x, y)$\
-常见拉普拉斯滤波器特点:1. 中心对称；2. 中间值的绝对值大； 3. 和为零。
+*连续*：$nabla^2 f = frac(diff^2 f, diff x^2) + frac(diff^2 f, diff y^2)$\
+*离散*：$nabla^2 f = [ f(x + 1, y) + f(x - 1, y) + f(x, y + 1) + f(x, y - 1) ] - 4 f(x, y)$\
+常见拉普拉斯滤波器*特点*:1. 中心对称；2. 中间值的绝对值大； 3. 和为零。
 // #image("./img/常见的拉普拉斯滤波器.png",height: 7%)\
 
 $mat(
@@ -143,11 +143,11 @@ mat(delim: #none, f(x comma y) - nabla^2 f(x comma y) comma, "当拉普拉斯滤
 f(x comma y) + nabla^2 f(x comma y) comma, "当拉普拉斯滤波中心系数为正",)$
 ==== 钝化掩蔽和高提升滤波
 用于增强图像的细节和边缘\
-模糊图像$hat(f)(x,y)$ 模板$g_(m a s k)(x,y)=f(x,y)-hat(f)(x,y)$ 加权相加 $g(x,y)=f(x,y)+k g_(m a s k)(x,y)$\
+*模糊图像*$hat(f)(x,y)$ *模板*$g_(m a s k)(x,y)=f(x,y)-hat(f)(x,y)$ 加权相加 $g(x,y)=f(x,y)+k g_(m a s k)(x,y)$\
 k=1为钝化掩蔽 k>1为高提升滤波 k\<1不强调钝化模板的贡献
 ===   低通、高通、带阻和带通滤波器
 
 #image("./img/lbq.png",height: 15%)\
 单位冲激中心和滤波器核中心重合\
-低通 $l p(x comma y)$，高通 $h p(x comma y) = delta(x comma y) - l p(x comma y)$\
-带阻 $b r(x comma y) = l p_1 (x comma y) + h p_2 (x comma y), = l p_1 (x comma y) + [ delta(x comma y) - h p_2 (x comma y) ]$，带通 $b p(x comma y) = delta(x comma y) - b r(x comma y) = delta(x comma y) - [ l p_1 (x comma y) + [ delta(x comma y) - l p_2 (x comma y) ] ]$
+*低通* $l p(x comma y)$，*高通* $h p(x comma y) = delta(x comma y) - l p(x comma y)$\
+*带阻* $b r(x comma y) = l p_1 (x comma y) + h p_2 (x comma y), = l p_1 (x comma y) + [ delta(x comma y) - h p_2 (x comma y) ]$，*带通* $b p(x comma y) = delta(x comma y) - b r(x comma y) = delta(x comma y) - [ l p_1 (x comma y) + [ delta(x comma y) - l p_2 (x comma y) ] ]$

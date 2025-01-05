@@ -7,21 +7,21 @@
 
 == 背景知识
 
-差分: 前向 $frac(partial f (x), partial x) = f (x + 1) - f (x)$  后向 $frac(partial f (x), partial x) = f (x) - f (x - 1)$  中值 $frac(partial f (x), partial x) = frac(f (x + 1) - f (x - 1), 2)$  二阶 $frac(partial^2 f (x), partial x^2) = f (x + 1) - 2 f (x) + f (x - 1)$\
-一阶导a）在恒定灰度区域为零；b）在灰度台阶和斜坡开始处不为零；c）在灰度斜坡上不为零\
-二阶导a）在恒定灰度区域为零；b）在灰度台阶和斜坡开始处不为零；c）在灰度斜坡上为零\
+*差分*: 前向 $frac(partial f (x), partial x) = f (x + 1) - f (x)$  后向 $frac(partial f (x), partial x) = f (x) - f (x - 1)$  中值 $frac(partial f (x), partial x) = frac(f (x + 1) - f (x - 1), 2)$  二阶 $frac(partial^2 f (x), partial x^2) = f (x + 1) - 2 f (x) + f (x - 1)$\
+*一阶导*a）在恒定灰度区域为零；b）在灰度台阶和斜坡开始处不为零；c）在灰度斜坡上不为零\
+*二阶导*a）在恒定灰度区域为零；b）在灰度台阶和斜坡开始处不为零；c）在灰度斜坡上为零\
 (1)一阶导产生粗边缘；(2)二阶导对精细细节(如细线、孤立点和噪声)有更强的响应；(3)二阶导在灰度斜坡和台阶过渡处会产生双边缘响应；(4)二阶导的符号可用于确定边缘的过渡是从亮到暗(正)还是从暗到亮(负)。\
 滤波器在核的中心点的响应是$Z  = sum_(k = 1)^9 w_k z_k$ w 1,2,3为核第一行,以此类推
 
 
 == 孤立点检测
 
-拉普拉斯  $nabla^2 f (x , y) = frac(partial^2 f, partial x^2) + frac(partial^2 f, partial y^2)  = f (x + 1 , y) + f (x - 1 , y) + f (x , y + 1) + f (x , y - 1) - 4 f (x , y)$
+*拉普拉斯*  $nabla^2 f (x , y) = frac(partial^2 f, partial x^2) + frac(partial^2 f, partial y^2)  = f (x + 1 , y) + f (x - 1 , y) + f (x , y + 1) + f (x , y - 1) - 4 f (x , y)$
 
 超过阈值T的标记 $g (x , y) = cases(delim: "{", 1  "," lr(|Z (x , y)|) > T, 0 "," upright("其他") & )$ $nabla^2 f=Z$
 
 == 线检测
-拉普拉斯核是各向同性的、特殊方向线检测通常采用如下4种模板\
+拉普拉斯核是各向同性的、特殊方向线检测通常采用如下4种*模板*\
 // #image("./img/zxjc.png",height: 5%)
 $"水平："
 mat(
@@ -54,10 +54,10 @@ mat(
 如果上述4种模板产生的响应分别为：Ri，如果|Ri(x,y)|>|Rj(x,y)|,并且i≠j，则认为此点与模板i方向的线有关。
 == 边缘检测
 
-梯度 $nabla f (x , y) equiv upright(g r a d) [f (x , y)] equiv mat(delim: "[", g_x (x , y); g_y (x , y)) = mat(delim: "[", frac(partial f (x , y), partial x); frac(partial f (x , y), partial y))$\
-梯度幅度(L2) $M (x , y) = ||nabla f (x , y)|| = sqrt(g_x^2 (x , y) + g_y^2 (x , y))$\
-绝对值来近似梯度幅度(L1)：$M (x , y) approx lr(|g_x|) + lr(|g_y|)$\
-梯度方向(垂直边缘) $alpha (x , y) = arctan [frac(g_y (x , y), g_x (x , y))]$
+*梯度* $nabla f (x , y) equiv upright(g r a d) [f (x , y)] equiv mat(delim: "[", g_x (x , y); g_y (x , y)) = mat(delim: "[", frac(partial f (x , y), partial x); frac(partial f (x , y), partial y))$\
+*梯度幅度*(L2) $M (x , y) = ||nabla f (x , y)|| = sqrt(g_x^2 (x , y) + g_y^2 (x , y))$\
+*绝对值来近似梯度幅度*(L1)：$M (x , y) approx lr(|g_x|) + lr(|g_y|)$\
+*梯度方向*(垂直边缘) $alpha (x , y) = arctan [frac(g_y (x , y), g_x (x , y))]$
 
 $mat(
   z_1, z_2, z_3;
@@ -69,9 +69,9 @@ $mat(
 *Prewitt算子*   $g_x = frac(partial f, partial x) = (z_7 + z_8 + z_9) - (z_1 + z_2 + z_3)$     $g_y = frac(partial f, partial y) = (z_3 + z_6 + z_9) - (z_1 + z_4 + z_7)$\
 *Sobel 算子*  $g_x = frac(partial f, partial x) = (z_7 + 2 z_8 + z_9) - (z_1 + 2 z_2 + z_3)$     $g_y = frac(partial f, partial y) = (z_3 + 2 z_6 + z_9) - (z_1 + 2 z_4 + z_7)$\
 与Sobel相比，Prewitt更简单，但Sobel能更好抑制（平滑）噪声。\
-Kirsch罗盘核：用于检测8个罗盘方向的边缘幅度和方向\
+*Kirsch罗盘核*：用于检测8个罗盘方向的边缘幅度和方向\
 二维高斯函数， $G (x , y) = upright(e)^(- frac(x^2 + y^2, 2 sigma^2))$ ;
-高斯拉普拉斯(LoG)函数:  $nabla^2 G (x , y) = (frac(x^2 + y^2 - 2 sigma^2, sigma^4)) upright(e)^(- frac(x^2 + y^2, 2 sigma^2))$\
+*高斯拉普拉斯(LoG)函数*:  $nabla^2 G (x , y) = (frac(x^2 + y^2 - 2 sigma^2, sigma^4)) upright(e)^(- frac(x^2 + y^2, 2 sigma^2))$\
 *Marr-Hildreth算法*  $g (x , y) = [nabla^2 G (x , y)] star.filled f (x , y) = nabla^2 [G (x , y) star.op f (x , y)]$  寻找g(x,y)的过零点来确定f(x,y)中边缘的位置\
 高斯差分(DoG)来近似式的LoG函数  $D_G (x , y) = frac(1, 2 pi sigma_1^2) upright(e)^(- frac(x^2 + y^2, 2 sigma_1^2)) - frac(1, 2 pi sigma_2^2) upright(e)^(- frac(x^2 + y^2, 2 sigma_2^2))$\
 *Canny 坎尼* 1.用一个高斯滤波器平滑输入图$f_s (x , y) = G (x , y) star.op f (x , y)$ 2.计算梯度幅值图像$M_S$(L2)和角度图像$alpha (x , y) = tan^(- 1) [frac(g_y (x , y), g_x (x , y))]$ 3.对梯度幅值图像应用非极大值抑制进行细化边缘 4.用双阈值处理和连通性分析来检测与连接边缘\
@@ -116,7 +116,7 @@ $m_G$ 是图像的全局均值：
 $m(k)$ 是灰度级 $k$ 的累积均值：
   $m(k) = sum_(i=0)^k i dot p_i$
 
-类间方差：
+*类间方差*：
 将图像分为两类：前景（$C_1$）和背景（$C_2$），阈值为 $k$\
 计算两类的概率：
   $P_1(k) = sum_(i=0)^k p_i, quad P_2(k) = sum_(i=k+1)^(L-1) p_i$
@@ -129,15 +129,15 @@ $m(k)$ 是灰度级 $k$ 的累积均值：
 最佳阈值：遍历所有可能的阈值 $k$（$0 <= k <= L-1$），找到使类间方差 $sigma_B^2(k)$ 最大的 $k$：
 $k^* = "arg max"_(0 <= k <= L-1) sigma_B^2(k)$
 
-步骤：计算图像的灰度直方图,遍历所有可能的阈值 $k$，计算每个 $k$ 对应的类间方差 $sigma_B^2(k)$,找到使 $sigma_B^2(k)$ 最大的阈值 $k^*$,使用 $k^*$ 对图像进行二值化处理
+*步骤*：计算图像的灰度直方图,遍历所有可能的阈值 $k$，计算每个 $k$ 对应的类间方差 $sigma_B^2(k)$,找到使 $sigma_B^2(k)$ 最大的阈值 $k^*$,使用 $k^*$ 对图像进行二值化处理
 
 
-优点：
+*优点*：
   *自动选择阈值*：无需手动设置阈值，适合处理大量图像;
   *适用于双峰直方图*：对前景和背景对比明显的图像效果较好;
   *计算简单*：基于直方图统计，计算效率高
 
-缺点：
+*缺点*：
   *对噪声敏感*：如果图像噪声较多，直方图可能不再是双峰分布，导致阈值选择不准确;
   *仅适用于全局阈值*：对于光照不均匀的图像，Otsu 方法可能无法得到理想的分割结果
 
@@ -171,7 +171,7 @@ $Q = cases(delim: "{", upright(t r u e) " " sigma > alpha and 0 < m < b, upright
 == 分水岭变换
 
 //P585
-1. 梯度图像：，算法使用图像的梯度图像 $g(x,y)$，其中包含多个区域极小值 $M_{1}, M_{2},  M_{g}$。这些极小值对应于图像中的局部低谷。\
+1. 梯度图像：算法使用图像的梯度图像 $g(x,y)$，其中包含多个区域极小值 $M_{1}, M_{2},  M_{g}$。这些极小值对应于图像中的局部低谷。\
 2. 汇水盆地：每个区域极小值 $M_{i}$ 都有一个与之相关联的汇水盆地 $C(M_i)$，这些汇水盆地中的点形成一个连通分量。\
 3. 淹没过程：算法通过模拟水位从最小值 $min$ 逐渐上升到最大值 $max$ 的过程来分割图像。在每个水位 $n$，集合 $T[n]$ 包含所有灰度值小于 $n$ 的点。\
 4. 二值图像：在每个水位 $n$，$T[n]$ 可以被视为一幅二值图像，其中黑点表示位于平面 $g(x,y) = n$ 下方的点。\
@@ -186,36 +186,34 @@ $Q = cases(delim: "{", upright(t r u e) " " sigma > alpha and 0 < m < b, upright
 
 == 空间域技术
 
-运动分割通常使用累积差值图像（ADI）来检测运动目标。ADI主要有三种类型：
+运动分割通常使用累积差值图像（ADI）来检测运动目标。*ADI*主要有三种类型：
 
-绝对ADI：检测任何变化，不考虑变化的方向。
+*绝对ADI*：检测任何变化，不考虑变化的方向。
 
-*公式*：
+公式：
 $d_(i j)^("abs")(x,y) = cases(
   1 "if " |f(x,y,t_i) - f(x,y,t_j)| > T,
   0 "otherwise"
 )$
 
-*用途*：适用于检测所有类型的运动变化。
+用途：适用于检测所有类型的运动变化。
 
-正ADI：只检测正向变化（亮度增加）。
+*正ADI*：只检测正向变化（亮度增加）。
 
-*公式*：
+公式：
 $d_(i j)^("pos")(x,y) = cases(
   1 "if " f(x,y,t_i) - f(x,y,t_j) > T,
   0 "otherwise"
 )$
 
-*用途*：适用于检测出现的物体或光照增强区域。
+用途：适用于检测出现的物体或光照增强区域。
 
-负ADI：只检测负向变化（亮度减少）。
+*负ADI*：只检测负向变化（亮度减少）。
 
-*公式*：
-$
-d_(i j)^("neg")(x,y) = cases(
+公式：
+$d_(i j)^("neg")(x,y) = cases(
   1 "if " f(x,y,t_j) - f(x,y,t_i) > T,
   0 "otherwise"
-)
-$
+)$
 
-*用途*：适用于检测消失的物体或阴影区域。
+用途：适用于检测消失的物体或阴影区域。
