@@ -24,7 +24,7 @@ $n_k$是f中灰度为$r_k$的像素的数量 ; k越大越白\
 
 假设$s=T(r)$在$0 lt.eq  r lt.eq  L-1$，$T(r)$严格单调递增且$0 lt.eq  T(r) lt.eq  L-1$。\
 //确保反函数存在,输入输出范围一样
-变换前后的pdf为$p_r(r),p_s(s)$ \
+变换前后的pdf为$p_r (r),p_s (s)$ \
 若$T(r)$还可微，有$p_s (s) = p_r (r) lr(|frac(d r, d s)|)$
 //结论：变换后的图像的灰度级s的概率密度函数ps(s)由输入图像的灰度级r的概率密度函数pr(r)，和所选择的变换函数T(r)确定。
 
@@ -35,7 +35,7 @@ $n_k$是f中灰度为$r_k$的像素的数量 ; k越大越白\
 
 ==== 匹配(规定化)
 使得直方图变换到规定的分布;均衡可以看作是匹配的特例\
-输入原始图$p_r(r)$，目标图像$p_z(z)$，求输入𝑟到输出𝑧的变换公式\
+输入原始图$p_r (r)$，目标图像$p_z (z)$，求输入𝑟到输出𝑧的变换公式\
 把原始图像和目标图像都用均衡化的作为桥梁\
 连续：原图均衡化$s=T(r) =(L - 1) integral_0^r p_r (w) dif w$;目标图均衡化$s=G(z) =(L - 1) integral_0^z p_z (nu) dif nu$\
 均衡化图求逆得到目标$z = G^(-1)(s) = G^(-1) [ T(r) ]$
@@ -85,8 +85,8 @@ $w_1 w_2$为$m times 1$,$n times 1$列向量\
 === 平滑（低通）空间滤波器
 
 降低相邻灰度的急剧过度，以减少无关细节（噪声）；平滑通过对相邻像素求和（积分）实现. 归一化确保亮度不变 ; 低通滤波可去除“无关”细节：即比其核小很多的点/区域\
-$g(x, y) = frac(sum_(s = - a t = - b)^a sum_(-b)^b w(s comma t) f(x + s comma y + t), sum_(s = - a t = - b)^a sum_(-b)^b w(s comma t))$
-#image("./img/常用低通核.png",height: 3%)\
+$g(x, y) = frac(sum_(s = - a)^a sum_(t = -b)^b w(s comma t) f(x + s comma y + t), sum_(s = - a)^a sum_(t = -b)^b w(s comma t))$
+#image("./img/常用低通核.png",height: 10%)\
 盒式滤波器:每个元素相同;核越大,对越多像素做平均,其平滑程度越明显，细节丢失越多;\
 高斯核函数 $w(s, t) = G(s, t) = K e^(-frac(s^2 + t^2, 2 sigma^2))$ 一般选核大小奇数接近$ 6 sigma$ 对同一图像，高斯核越大越模糊 ; 圆对称：到中心点距离𝑟一样，则对应系数一样的;可分离：可写成两个一维的高斯分布相乘形式\
 对比：高斯核更适合去噪和平滑处理;盒式核更适合锐化和边缘增强。
@@ -100,7 +100,7 @@ $g(x, y) = frac(sum_(s = - a t = - b)^a sum_(-b)^b w(s comma t) f(x + s comma y 
 连续：$nabla^2 f = frac(diff^2 f, diff x^2) + frac(diff^2 f, diff y^2)$\
 离散：$nabla^2 f = [ f(x + 1, y) + f(x - 1, y) + f(x, y + 1) + f(x, y - 1) ] - 4 f(x, y)$\
 常见拉普拉斯滤波器特点:1. 中心对称；2. 中间值的绝对值大； 3. 和为零。
-#image("./img/常见的拉普拉斯滤波器.png",height: 2%)\
+#image("./img/常见的拉普拉斯滤波器.png",height: 7%)\
 $g(x, y) =brace.l
 mat(delim: #none, f(x comma y) - nabla^2 f(x comma y) comma, "当拉普拉斯滤波中心系数为负";
 f(x comma y) + nabla^2 f(x comma y) comma, "当拉普拉斯滤波中心系数为正",)$
@@ -110,7 +110,7 @@ f(x comma y) + nabla^2 f(x comma y) comma, "当拉普拉斯滤波中心系数为
 k=1为钝化掩蔽 k>1为高提升滤波 k\<1不强调钝化模板的贡献
 ===   低通、高通、带阻和带通滤波器
 
-#image("./img/lbq.png",height: 3%)\
+#image("./img/lbq.png",height: 15%)\
 单位冲激中心和滤波器核中心重合\
 低通 $l p(x comma y)$，高通 $h p(x comma y) = delta(x comma y) - l p(x comma y)$\
 带阻 $b r(x comma y) = l p_1 (x comma y) + h p_2 (x comma y), = l p_1 (x comma y) + [ delta(x comma y) - h p_2 (x comma y) ]$，带通 $b p(x comma y) = delta(x comma y) - b r(x comma y) = delta(x comma y) - [ l p_1 (x comma y) + [ delta(x comma y) - l p_2 (x comma y) ] ]$

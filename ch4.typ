@@ -10,9 +10,9 @@
 采样定理:采样率$f_s$应大于等于信号最高频率的两倍，即$f_s>2f_max$，否则会出现混叠现象。\
 
 
-== 单变量的离散傅里叶变换
+== 单变量的傅里叶变换
 
-连续 $f(t) = integral_(-infinity)^infinity F(mu) e^(j 2 pi mu t) d mu quad F(mu) = integral_(-infinity)^infinity$ ; $f(t) e^(-j 2 pi mu t) d t$\
+连续 $f(t) = integral_(-infinity)^infinity F(mu) e^(j 2 pi mu t) d mu quad F(mu) = integral_(-infinity)^infinity f(t) e^(-j 2 pi mu t) d t$\
 
 离散 $u,x in [0,M-1]$ \
 $F(u) = sum_(x = 0)^(M - 1) f(x) e^(-j 2 pi u x \/ M)$ ; $f(x) = frac(1, M) sum_(x = 0)^(M - 1) F(u) e^(j 2 pi u x \/ M)$
@@ -21,7 +21,7 @@ $F(u) = sum_(x = 0)^(M - 1) f(x) e^(-j 2 pi u x \/ M)$ ; $f(x) = frac(1, M) sum_
 
 二维傅里叶变换是一维情形向两个方向的简单扩展\
 $F(u, v) = integral_(-infinity)^(+infinity) integral_(-infinity)^(+infinity) f(t, z) e^(-j 2 pi(u t + v z)) d t d z$ ;
-$f(t, z) = integral_(-infinity)^(+infinity) integral_(-infinity)^(+infinity) F(u, v) e^(j 2 pi(mu t + v z)) d u d v$\
+$f(t, z) = integral_(-infinity)^(+infinity) integral_(-infinity)^(+infinity) F(u, v) e^(j 2 pi(u t + v z)) d u d v$\
 采样：$tilde(f)(t, z) = f(t, z) s_(Delta T Delta Z)(t, z) = sum_(m = - infinity)^(infinity) sum_(n = - infinity)^(infinity) f(t, z) sigma(t - m Delta T, z - n Delta Z)$
 
 DFT：$F(u, v) = sum_(x = 0)^(M - 1) sum_(y = 0)^(N - 1) f(x, y) e^(-j 2 pi(u x \/ M + v y \/ N))$\
@@ -37,7 +37,7 @@ IDFT：$f(x, y) = frac(1, M N) sum_(u = 0)^(M - 1) sum_(v = 0)^(N - 1) F(u, v) e
 
 相关 $(f star.stroked h)(x, y) = sum_(m = 0)^(M - 1) sum_(n = 0)^(N - 1) f^* (m, n) h(x + m, y + n)$
 
-使用DFT算法求IDFT $M N f^* (x, y) = sum_(u = 0)^(M - 1) sum_(v = 0)^(N - 1) F^* (u, v) upright(e)^(-upright(j) 2 pi(u x \/ M + nu y \/ N))$ 结果取复共轭并除以MN就可得到反变换\
+使用DFT算法求IDFT $M N f^* (x, y) = sum_(u = 0)^(M - 1) sum_(v = 0)^(N - 1) F^* (u, v) upright(e)^(-upright(j) 2 pi(u x \/ M + v y \/ N))$ 结果取复共轭并除以MN就可得到反变换\
 //表4.4
 离散单位冲激 $delta(x, y) arrow.l.r.double 1, 1 arrow.l.r.double M N delta(u, v)$\
 卷积定理$(f star h)(x, y) arrow.l.r.double(F dot.op H)(u, v) || (f dot.op h)(x, y) arrow.l.r.double frac(1, M N)(F star H)(u, v)$
@@ -46,14 +46,14 @@ IDFT：$f(x, y) = frac(1, M N) sum_(u = 0)^(M - 1) sum_(v = 0)^(N - 1) F(u, v) e
 $delta(x - a, y - b) arrow.l.r.double e^(-j 2 pi(u a + v b))$
 
 == 频率域滤波
-(1)对图像f(x,y)进行零填充(长宽均变为两倍，变为$P times Q$\
+(1)对图像$f(x,y)$进行零填充(长宽均变为两倍，变为$P times Q$)\
 //防止交叠错误
 (2)频谱中心化：用$(-1)^(x+y)$乘以填充后的图像\
 (3)计算`(2)`结果的DFT，即$F(u,v);$\
 (4)用滤波器函数(中心在(P/2,Q/2))$H(u,v)$乘以$F( u, v) :G(u, v) = H(u, v) F(u, v)$\
 (5)计算`(4)`中结果的IDFT，$g(x, y) = F^(-1)(G(u, v)) $理论值为实数，计算误差会导致寄生复成分\
 (6)得到`(5)`结果中的实部;\
-(7) 用$(-1)^{(x+y)}$乘以(6)中的结果\
+(7) 用$(-1)^(x+y)$乘以(6)中的结果\
 (8)提取(7)中的左上角(与输入图像同大小)。
 
 
@@ -77,14 +77,14 @@ $H_(H P)(u,v)=1-H_(L P)(u,v)$; $h_(H P)= delta (x , y) - h_(L P) (x , y) eq.not 
 巴特沃斯：$H(u, v) = frac(1, 1 + [ D_0 \/ D(u comma v) ]^(2 n))$ ; 高斯：$H(u, v) = 1 - e^(-D^2 (u, v) \/ 2 D_0^2)$\
 频域拉普拉斯算子： $H (u , v) = - 4 pi^2 (u^2 + v^2)$
 中心化版$H (u , v) = - 4 pi^2 [(u - P \/ 2)^2 + (v - Q \/ 2)^2] = - 4 pi^2 D^2 (u , v)$\
-基于锐化滤波的图像增强$g (x , y) = f (x , y) + c nabla^2 f (x , y)$;其中二阶梯度傅里叶变换为H*F\
+基于锐化滤波的图像增强$g (x , y) = f (x , y) + c nabla^2 f (x , y)$;其中二阶梯度傅里叶变换为$H^* F$\
 高提升滤波：$H_(h b)(u, v) =(A - 1) + H_(h p)(u, v)$\
 高频加强滤波：$H_(h f e)(u, v) = a + b H_(h p)(u, v)$ a控制原始贡献，b控制高通贡献\
 同态滤波 $H(u, v) =(gamma_H - gamma_L) [ 1 - e^(-c(D^2 (u, v) \/ D_0^2)) ] + gamma_L$ 衰减图像的低频成分（光照分量），增强高频成分（反射分量）\
 其中$gamma_L<1$低频成分增益因且$gamma_H>1$高频成分增益因子;$c$用于控制滤波器函数斜面的锐化
 
 == 带阻滤波器
-#image("./img/带阻滤波器.png",height: 3%)
+#image("./img/带阻滤波器.png",height: 4%)
 去除摩尔纹;去除周期干扰
 
 == 快速傅里叶变换

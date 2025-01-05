@@ -26,7 +26,7 @@
 #show heading.where(
   level: 2
 ): it => block(width: 100%)[
-  #set text(6pt, weight: "bold")
+  #set text(6.5pt, weight: "bold")
   #smallcaps(it.body)
 ]
 

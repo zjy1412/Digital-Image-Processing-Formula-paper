@@ -196,8 +196,8 @@ $(f minus.circle b)^c = f^c plus.circle hat(b) quad(f plus.circle b)^c = f^c min
 开运算$ f circle.stroked.tiny b = (f minus.circle b) xor b$ 闭运算$ f bullet b = (f xor b) minus.circle b$ 它们也是对偶的\
 开运算经常用于去除小而明亮的细节；闭运算经常用于去除小而黑暗的细节\
 从信号图像看开削峰，闭填谷;两个都满足图片中的性质
-#image("./img/灰度开运算和闭运算性质.png",height: 5%)\
-形态学梯度 $g = vec(f xor b) - vec(f minus.circle b)$ ; 显示边缘
+#image("./img/灰度开运算和闭运算性质.png",height: 6%)\
+形态学梯度 $g = (f xor b) - (f minus.circle b)$ ; 显示边缘
 顶帽变换 $T_(h a t)(f)=f - (f circle.stroked.tiny b)$ 亦称“白顶帽”变换，用于暗背景上亮物体;暗背景下亮目标分割\
 底帽变换 $B_(h a t)(f)=(f bullet b) - f$ 亦称“黑底帽”变换，用于亮背景上暗物体;亮背景下暗目标分割\
 粒度测定:使用逐渐增大的结构元对图像进行开运算。某个特殊尺寸的开运算对包含类似尺寸的颗粒的输入图像的区域产生最大的效果。
