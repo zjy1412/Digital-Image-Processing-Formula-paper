@@ -19,7 +19,7 @@ $n_k$是f中灰度为$r_k$的像素的数量 ; k越大越白\
 *直方图*:对容器归一化$p(r_k) = frac(h(r_k), M N) = frac(n_k, M N)$\
 无空间信息,不同图像可能直方图相似,同一图像切片的直方图有可加性;若一幅图像其像素占有全部可能的灰度级并且分布均匀，这样的图像灰度对比度高、细节会相对明显
 
-==== 均衡化
+=== 均衡化
 
 假设$s=T(r)$在$0 lt.eq  r lt.eq  L-1$，$T(r)$严格单调递增且$0 lt.eq  T(r) lt.eq  L-1$。\
 //确保反函数存在,输入输出范围一样
@@ -32,7 +32,7 @@ $n_k$是f中灰度为$r_k$的像素的数量 ; k越大越白\
 目的:使图像产生灰度级丰富且动态范围大的图像灰度;期望得到均匀分布直方图;数字图像均衡化只是连续情况的近似;简并:灰度级减少了（不同的灰度变换到同一灰度）
 
 
-==== 匹配(规定化)
+=== 匹配(规定化)
 使得直方图变换到规定的分布;均衡可以看作是匹配的特例\
 输入原始图$p_r (r)$，目标图像$p_z (z)$，求输入𝑟到输出𝑧的变换公式\
 把原始图像和目标图像都用均衡化的作为桥梁\
@@ -93,7 +93,7 @@ $"盒式线性滤波"
   1, 1, 1;
   1, 1, 1;
 )
-\
+
 "一般线性平滑"
 1/16 times mat(
   1, 2, 1;
@@ -147,7 +147,8 @@ f(x comma y) + nabla^2 f(x comma y) comma, "当拉普拉斯滤波中心系数为
 k=1为钝化掩蔽 k>1为高提升滤波 k\<1不强调钝化模板的贡献
 ===   低通、高通、带阻和带通滤波器
 
-#image("./img/lbq.png",height: 15%)\
+// #image("./img/lbq.png",height: 15%)\
+
 单位冲激中心和滤波器核中心重合\
 *低通* $l p(x comma y)$，*高通* $h p(x comma y) = delta(x comma y) - l p(x comma y)$\
 *带阻* $b r(x comma y) = l p_1 (x comma y) + h p_2 (x comma y), = l p_1 (x comma y) + [ delta(x comma y) - h p_2 (x comma y) ]$，*带通* $b p(x comma y) = delta(x comma y) - b r(x comma y) = delta(x comma y) - [ l p_1 (x comma y) + [ delta(x comma y) - l p_2 (x comma y) ] ]$

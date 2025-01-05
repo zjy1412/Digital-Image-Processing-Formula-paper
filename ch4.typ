@@ -17,6 +17,15 @@
 *离散* $u,x in [0,M-1]$ \
 $F(u) = sum_(x = 0)^(M - 1) f(x) e^(-j 2 pi u x \/ M)$ ; $f(x) = frac(1, M) sum_(x = 0)^(M - 1) F(u) e^(j 2 pi u x \/ M)$
 
+*冲激性质*:$integral_(- oo)^oo e^(j omega t) upright(d) omega = 2 pi delta (t)$ ; $f(t) delta(t) = f(0) delta(t)$ ; $integral_(-infinity)^infinity f(t) delta(t - t_0) dif t = f(t_0)$\
+$sum_(k = 0)^(n - 1) e^(-i 2 pi frac(m k, n)) =brace.l
+mat(delim: #none, n comma, "如果 " m equiv 0(upright(m o d) n);
+0 comma, "否则",,)$;\
+$integral_(-infinity)^(+infinity) e^(-x^2) d x = sqrt(pi)$ ;
+ $sum_(x=0)^(M-1) e^(j 2pi k x \/M) = M delta (k mod M)$ \
+$delta(k, l) = delta(k) dot.op delta(l)
+$ ; $sum_(x = 0)^(M - 1) sum_(y = 0)^(N - 1) e^(-j(frac(2 pi k x, M) + frac(2 pi l y, N))) = M N delta(k, l)$
+
 == 二变量函数的傅里叶变换
 
 *二维傅里叶变换*是一维情形向两个方向的简单扩展\
@@ -45,10 +54,17 @@ $f(t, z) = integral_(-infinity)^(+infinity) integral_(-infinity)^(+infinity) F(u
 *平移性* $f(x, y) upright(e)^(upright(j) 2 pi(u_0 x \/ M + v_0 y \/ N)) arrow.l.r.double F(u - u_0, v - v_0) $ \ $f(x - x_0, y - y_0) arrow.l.r.double F(u, v) upright(e)^(-upright(j) 2 pi(u x_0 \/ M + nu y_0 \/ N))$\
 $delta(x - a, y - b) arrow.l.r.double e^(-j 2 pi(u a + v b))$
 
+补充：$sin theta = (e^(j theta) - e^(-j theta))/2$, $cos theta = (e^(j theta) + e^(-j theta))/2$
+
+正交性质：$sum_(x=0)^(M-1) e^(j 2 pi r x\/M) e^(-j 2 pi u x\/M) = cases(
+  M quad &"当" r = u,
+  0 quad &"其他"
+)$
+
 == 频率域滤波
 (1)对图像$f(x,y)$进行零填充(长宽均变为两倍，变为$P times Q$)\
 //防止交叠错误
-(2)频谱中心化：用$(-1)^(x+y)$乘以填充后的图像\
+(2)频谱中心化：用$(-1)^(x+y)=e^(j pi(x + y))$乘以填充后的图像\
 (3)计算`(2)`结果的DFT，即$F(u,v);$\
 (4)用滤波器函数(中心在(P/2,Q/2))$H(u,v)$乘以$F( u, v) :G(u, v) = H(u, v) F(u, v)$\
 (5)计算`(4)`中结果的IDFT，$g(x, y) = F^(-1)(G(u, v)) $理论值为实数，计算误差会导致寄生复成分\
@@ -74,7 +90,7 @@ mat(delim: #none, 1 comma, D(u comma v) lt.eq D_0;
 *对低通滤波相反操作得到高通*：\
 $H_(H P)(u,v)=1-H_(L P)(u,v)$; $h_(H P)= delta (x , y) - h_(L P) (x , y) eq.not 1 - h_(L P) (x , y)$\
 *理想IHPF*：$H(u, v) =brace.l mat(delim: #none, 0 comma, D(u comma v) lt.eq D_0; 1 comma, D(u comma v) > D_0)$\
-*巴特沃斯*：$H(u, v) = frac(1, 1 + [ D_0 \/ D(u comma v) ]^(2 n))$ ; 高斯：$H(u, v) = 1 - e^(-D^2 (u, v) \/ 2 D_0^2)$\
+*巴特沃斯*：$H(u, v) = frac(1, 1 + [ D_0 \/ D(u comma v) ]^(2 n))$ ; *高斯*：$H(u, v) = 1 - e^(-D^2 (u, v) \/ 2 D_0^2)$\
 *频域拉普拉斯算子*： $H (u , v) = - 4 pi^2 (u^2 + v^2)$
 中心化版$H (u , v) = - 4 pi^2 [(u - P \/ 2)^2 + (v - Q \/ 2)^2] = - 4 pi^2 D^2 (u , v)$\
 *基于锐化滤波的图像增强*$g (x , y) = f (x , y) + c nabla^2 f (x , y)$;其中二阶梯度傅里叶变换为$H^* F$\

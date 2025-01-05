@@ -52,6 +52,36 @@ mat(
 )$
 
 如果上述4种模板产生的响应分别为：Ri，如果|Ri(x,y)|>|Rj(x,y)|,并且i≠j，则认为此点与模板i方向的线有关。
+
+验证：\
+$"水平："
+mat(
+  b, b, b;
+  a, a, a;
+  a, a, a;
+)
+
+"垂直："
+mat(
+  b, a, a;
+  b, a, a;
+  b, a, a;
+)
+
+"+45°："
+mat(
+  b, b, a;
+  b, a, a;
+  b, a, a;
+)
+
+"-45°："
+mat(
+  a, a, a;
+  b, a, a;
+  b, b, a;
+)$
+
 == 边缘检测
 
 *梯度* $nabla f (x , y) equiv upright(g r a d) [f (x , y)] equiv mat(delim: "[", g_x (x , y); g_y (x , y)) = mat(delim: "[", frac(partial f (x , y), partial x); frac(partial f (x , y), partial y))$\
@@ -86,7 +116,9 @@ $mat(
 
 == 阈值处理
 
-*单阈值* $g (x , y) = cases(delim: "{", 1 " " f (x , y) >= T,0" " f (x , y) lt.eq T & )$ *双阈值* $g (x , y) = cases(delim: "{", a ", " f (x , y) > T_2, b "," T_1 < f (x , y) lt.eq T_2, c "," f (x , y) lt.eq T_1 & )$
+*单阈值* $g (x , y) = cases(delim: "{", 1 " " f (x , y) >= T,0" " f (x , y) lt.eq T & )$ 
+
+*双阈值* $g (x , y) = cases(delim: "{", a ", " f (x , y) > T_2, b "," T_1 < f (x , y) lt.eq T_2, c "," f (x , y) lt.eq T_1 & )$
 
 *基本的全局阈值化*
 1. 为全局阈值$T$选择一个初始估计值。\
@@ -167,7 +199,7 @@ $Q = cases(delim: "{", upright(t r u e) " " sigma > alpha and 0 < m < b, upright
 1把满足Q(Ri)=FALSE的任何Ri区域分离为四个不相交的子象限区域；\
 2无法进一步分离时，聚合满足谓词逻辑$Q(R_j union R_k) = "TRUE"$的任意两个邻接区域Rj和Rk;\
 3在无法进一步聚合时停止。
-#image("./img/分离聚合.png",height: 10%)
+#image("./img/分离聚合.png",height: 8%)
 == 分水岭变换
 
 //P585
@@ -186,34 +218,25 @@ $Q = cases(delim: "{", upright(t r u e) " " sigma > alpha and 0 < m < b, upright
 
 == 空间域技术
 
-运动分割通常使用累积差值图像（ADI）来检测运动目标。*ADI*主要有三种类型：
+累积差值图像*ADI*主要有三种类型：
 
 *绝对ADI*：检测任何变化，不考虑变化的方向。
 
-公式：
 $d_(i j)^("abs")(x,y) = cases(
   1 "if " |f(x,y,t_i) - f(x,y,t_j)| > T,
   0 "otherwise"
 )$
 
-用途：适用于检测所有类型的运动变化。
+*正ADI*：只检测正向变化（亮度增加）,适用于检测出现的物体或光照增强区域。
 
-*正ADI*：只检测正向变化（亮度增加）。
-
-公式：
 $d_(i j)^("pos")(x,y) = cases(
   1 "if " f(x,y,t_i) - f(x,y,t_j) > T,
   0 "otherwise"
 )$
 
-用途：适用于检测出现的物体或光照增强区域。
+*负ADI*：只检测负向变化（亮度减少）,适用于检测消失的物体或阴影区域。。
 
-*负ADI*：只检测负向变化（亮度减少）。
-
-公式：
 $d_(i j)^("neg")(x,y) = cases(
   1 "if " f(x,y,t_j) - f(x,y,t_i) > T,
   0 "otherwise"
 )$
-
-用途：适用于检测消失的物体或阴影区域。
